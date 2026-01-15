@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu List | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="navbar">
+    <h1>AtithiAI 🍽️</h1>
+    <div>
+        <a href="/menu/add">Add Item</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="page-title">Menu Items</div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price (₹)</th>
+                    <th>Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${menuItems}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.category}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td th:text="${item.available ? 'Yes' : 'No'}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

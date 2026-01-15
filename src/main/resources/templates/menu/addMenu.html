@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Menu Item | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="navbar">
+    <h1>AtithiAI 🍽️</h1>
+    <div>
+        <a href="/menu/list">Menu</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="page-title">Add New Menu Item</div>
+
+        <form th:action="@{/menu/save}" th:object="${menuItem}" method="post">
+
+            <div class="form-group">
+                <label>Item Name</label>
+                <input type="text" th:field="*{name}" placeholder="e.g. Paneer Butter Masala" required>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" th:field="*{category}" placeholder="Main Course" required>
+            </div>
+
+            <div class="form-group">
+                <label>Price (₹)</label>
+                <input type="number" th:field="*{price}" placeholder="250" required>
+            </div>
+
+            <div class="form-group">
+                <label>Available</label>
+                <select th:field="*{available}">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <button class="btn">Save Menu Item</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
