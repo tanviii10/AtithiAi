@@ -1,5 +1,6 @@
 package com.atithiai.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +32,18 @@ public class MenuViewController {
     }
 
     @GetMapping("/list")
-    public String listMenuItems(Model model) {
+    public String listMenu(Model model, Authentication authentication) {
+
+        String username = authentication.getName(); // phone
+        String role = authentication.getAuthorities().toString();
+
+        model.addAttribute("username", username);
+        model.addAttribute("role", role);
+
         model.addAttribute("menuItems", menuItemService.getAllMenuItems());
-        return "menu/menuList";
+
+        return "menu/menulist";
     }
+    
 
 }

@@ -165,6 +165,28 @@ body {
     letter-spacing: 0.8px;
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.logout-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #ff6b35;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.logout-btn:hover {
+    opacity: 0.9;
+}
+
+
 
 /* Responsive */
 @media (max-width: 900px) {
