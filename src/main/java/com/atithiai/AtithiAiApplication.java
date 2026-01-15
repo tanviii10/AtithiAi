@@ -8,7 +8,7 @@ public class AtithiAiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AtithiAiApplication.class, args);
-		System.out.println("project running.");	
+		System.out.println("project running..");	
 	}
 
 }
