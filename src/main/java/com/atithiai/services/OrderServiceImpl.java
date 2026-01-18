@@ -1,5 +1,7 @@
 package com.atithiai.services;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
 import com.atithiai.entities.MenuItem;
@@ -26,54 +28,69 @@ public class OrderServiceImpl implements OrderService {
         this.menuItemRepository = menuItemRepository;
     }
 
+    // 1️⃣ CREATE ORDER
     @Override
     public OrderMaster createOrder(Long tableId, String customerName) {
 
         OrderMaster order = new OrderMaster();
-        order.setRestaurantTableId(tableId);
+
+        // Table linking will be handled later
+        order.setRestaurantTable(null);
+
         order.setCustomerName(customerName);
         order.setStatus(OrderStatus.CREATED);
-        order.setTotalAmount(0.0);
+        order.setTotalAmount(BigDecimal.ZERO);
 
         return orderMasterRepository.save(order);
     }
 
+    // 2️⃣ ADD ITEM TO ORDER
     @Override
     public void addItemToOrder(Long orderId, Long menuItemId, int quantity) {
 
         OrderMaster order =
-                orderMasterRepository.findById(orderId).orElseThrow();
+                orderMasterRepository.findById(orderId)
+                        .orElseThrow(() -> new RuntimeException("Order not found"));
 
         MenuItem menuItem =
-                menuItemRepository.findById(menuItemId).orElseThrow();
+                menuItemRepository.findById(menuItemId)
+                        .orElseThrow(() -> new RuntimeException("Menu item not found"));
 
         OrderItem orderItem = new OrderItem();
-        orderItem.setOrder(order);
+        orderItem.setOrderMaster(order); // IMPORTANT: matches entity field
         orderItem.setMenuItem(menuItem);
         orderItem.setQuantity(quantity);
         orderItem.setPrice(menuItem.getPrice());
 
         orderItemRepository.save(orderItem);
 
-        double updatedTotal =
-                order.getTotalAmount() + (menuItem.getPrice() * quantity);
+        // BigDecimal calculation (CORRECT WAY)
+        BigDecimal itemTotal =
+                menuItem.getPrice().multiply(BigDecimal.valueOf(quantity));
+
+        BigDecimal updatedTotal =
+                order.getTotalAmount().add(itemTotal);
 
         order.setTotalAmount(updatedTotal);
         orderMasterRepository.save(order);
     }
 
+    // 3️⃣ UPDATE ORDER STATUS
     @Override
     public void updateOrderStatus(Long orderId, OrderStatus status) {
 
         OrderMaster order =
-                orderMasterRepository.findById(orderId).orElseThrow();
+                orderMasterRepository.findById(orderId)
+                        .orElseThrow(() -> new RuntimeException("Order not found"));
 
         order.setStatus(status);
         orderMasterRepository.save(order);
     }
 
+    // 4️⃣ GET ORDER BY ID
     @Override
     public OrderMaster getOrderById(Long orderId) {
-        return orderMasterRepository.findById(orderId).orElseThrow();
+        return orderMasterRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
     }
 }

@@ -12,27 +12,6 @@ import com.atithiai.services.OrderService;
 @RequestMapping("/api/order")
 public class OrderController {
 
-	private final OrderService orderService;
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
-
-    @PostMapping
-    public ResponseEntity<OrderMaster> createOrder(@RequestBody OrderMaster order) {
-        return ResponseEntity.ok(orderService.createOrder(order));
-    }
-
-    @PostMapping("/item")
-    public ResponseEntity<OrderItem> addOrderItem(@RequestBody OrderItem orderItem) {
-        return ResponseEntity.ok(orderService.addOrderItem(orderItem));
-    }
-
-    @PutMapping("/{orderId}/status")
-    public ResponseEntity<OrderMaster> updateOrderStatus(
-            @PathVariable Long orderId,
-            @RequestParam String status) {
-        return ResponseEntity.ok(orderService.updateOrderStatus(orderId, status));
-    }
+	
 
 }
