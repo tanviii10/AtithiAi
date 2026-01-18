@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.atithiai.enums.OrderStatus;
+
 @Entity
 @Table(name = "orderMaster")
 public class OrderMaster {
@@ -18,7 +20,10 @@ public class OrderMaster {
     private RestaurantTable restaurantTable;
 
     private String customerName;
-    private String status;
+    
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+    
     private BigDecimal totalAmount;
 
     private LocalDateTime orderTime;
@@ -50,11 +55,11 @@ public class OrderMaster {
         this.customerName = customerName;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
