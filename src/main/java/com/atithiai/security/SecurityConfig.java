@@ -24,6 +24,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/**").permitAll() 
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/kitchen").permitAll()
+                .requestMatchers("/order/**").permitAll()
+                .requestMatchers("/api/payments/**").permitAll()
                 .anyRequest().authenticated()
             )
             // 👇 IMPORTANT: disable redirect for APIs
