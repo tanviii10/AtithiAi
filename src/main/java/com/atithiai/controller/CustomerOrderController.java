@@ -11,6 +11,8 @@ import com.atithiai.entities.OrderMaster;
 import com.atithiai.services.MenuItemService;
 import com.atithiai.services.OrderService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class CustomerOrderController {
 	
@@ -54,6 +56,54 @@ public class CustomerOrderController {
 
         orderService.addItemToOrder(orderId, menuItemId, quantity);
         return "redirect:/order/" + orderId;
+    }
+    
+    @GetMapping("/order/menu")
+    public String showMenuByCategory(
+            @RequestParam String category,
+            Model model) {
+
+        List<MenuItem> items =
+                menuItemService.getAvailableItemsByCategory(category);
+
+        model.addAttribute("items", items);
+        model.addAttribute("category", category);
+
+        return "order/order-menu";
+    }
+    
+    @PostMapping("/order/start")
+    public String startOrder(
+            @RequestParam String customerName,
+            HttpSession session) {
+
+        OrderMaster order = orderService.createOrder(customerName);
+        session.setAttribute("orderId", order.getId());
+
+        return "redirect:/order/menu?category=STARTER";
+    }
+    
+    @PostMapping("/order/add-item")
+    public String addItem(
+            @RequestParam Long menuItemId,
+            @RequestParam int quantity,
+            HttpSession session) {
+
+        Long orderId = (Long) session.getAttribute("orderId");
+
+        orderService.addItemToOrder(orderId, menuItemId, quantity);
+
+        return "redirect:/order/menu";
+    }
+    
+    @GetMapping("/order/review")
+    public String reviewOrder(HttpSession session, Model model) {
+
+        Long orderId = (Long) session.getAttribute("orderId");
+        OrderMaster order = orderService.getOrderById(orderId);
+
+        model.addAttribute("order", order);
+        return "order/order-details";
     }
 
 }

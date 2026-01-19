@@ -1,37 +1,82 @@
 @charset "UTF-8";
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
 body {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
     background-color: #ffffff;
     color: #1f2937;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+:root {
+    --brand-primary: #ff6b35;
+    --brand-secondary: #ff9f1c;
+    --brand-dark: #111827;
+    --brand-gray: #6b7280;
+    --brand-light: #f9fafb;
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --danger: #dc2626;
+    --radius: 18px;
 }
 
 .navbar {
-    padding: 20px 60px;
+    padding: 18px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.logo {
-    font-size: 26px;
+.brand {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text {
+    font-size: 28px;
     font-weight: 700;
-    color: #ff6b35;
+    background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.6px;
+}
+
+.tagline {
+    margin-top: 4px;
+    font-size: 15px;
+    font-family: 'Tiro Devanagari Marathi', serif;
+    color: #7a3e2e;
+    letter-spacing: 0.8px;
 }
 
 .nav-links a {
     margin-left: 25px;
-    text-decoration: none;
     font-weight: 500;
     color: #374151;
+    transition: color 0.2s ease;
 }
 
-/* Hero Section */
+.nav-links a:hover {
+    color: var(--brand-primary);
+}
+
+
 .hero {
     display: flex;
     align-items: center;
@@ -49,13 +94,13 @@ body {
     margin-bottom: 20px;
 }
 
-.hero-text span {
-    color: #ff6b35;
+.hero-text h1 span {
+    color: var(--brand-primary);
 }
 
 .hero-text p {
     font-size: 18px;
-    color: #6b7280;
+    color: var(--brand-gray);
     margin-bottom: 30px;
 }
 
@@ -73,15 +118,15 @@ body {
 }
 
 .search-box button {
-    padding: 14px 20px;
+    padding: 14px 22px;
     border: none;
-    background: #ff6b35;
+    background: var(--brand-primary);
     color: white;
     border-radius: 0 10px 10px 0;
     cursor: pointer;
+    font-weight: 500;
 }
 
-/* Hero Image */
 .hero-image {
     flex: 1;
     text-align: center;
@@ -92,7 +137,6 @@ body {
     max-width: 450px;
 }
 
-/* Section */
 .section {
     padding: 70px 60px;
 }
@@ -103,7 +147,6 @@ body {
     margin-bottom: 40px;
 }
 
-/* Categories */
 .categories {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -114,9 +157,9 @@ body {
     text-align: center;
     padding: 25px;
     border-radius: 20px;
-    background: #fff;
+    background: #ffffff;
     box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .category-card:hover {
@@ -132,37 +175,59 @@ body {
     font-size: 18px;
 }
 
-/* Footer */
-.footer {
-    padding: 30px;
-    text-align: center;
-    background: #f9fafb;
-    color: #6b7280;
+.card {
+    background: #ffffff;
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
 }
 
-/* Brand section */
-.brand {
-    display: flex;
-    flex-direction: column;
+.btn-primary {
+    background: var(--brand-primary);
+    color: #ffffff;
 }
 
-/* AtithiAI logo */
-.logo-text {
-    font-size: 28px;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(90deg, #ff6b35, #ff9f1c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 0.5px;
+.btn-success {
+    background: var(--success);
+    color: #ffffff;
 }
 
-.tagline {
-    margin-top: 4px;
-    font-size: 16px;
-    font-family: 'Tiro Devanagari Marathi', serif;
-    color: #7a3e2e; /* deep cultural tone */
-    letter-spacing: 0.8px;
+.btn-danger {
+    background: var(--danger);
+    color: #ffffff;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+
+.badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #ffffff;
+}
+
+.badge.CREATED {
+    background: var(--warning);
+}
+
+.badge.IN_PROGRESS {
+    background: #2563eb;
+}
+
+.badge.COMPLETED {
+    background: var(--success);
 }
 
 .user-info {
@@ -174,49 +239,51 @@ body {
 
 .logout-btn {
     padding: 6px 14px;
-    border: none;
     border-radius: 8px;
-    background: #ff6b35;
+    background: var(--brand-primary);
     color: white;
-    cursor: pointer;
     font-size: 13px;
 }
 
-.logout-btn:hover {
-    opacity: 0.9;
+.footer {
+    padding: 30px;
+    text-align: center;
+    background: var(--brand-light);
+    color: var(--brand-gray);
+    margin-top: 60px;
 }
 
-.card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-}
-.badge {
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 13px;
-    color: #fff;
+.fade-in {
+    animation: fadeIn 0.4s ease-in;
 }
 
-.badge.CREATED { background: #f59e0b; }
-.badge.IN_PROGRESS { background: #2563eb; }
-.badge.COMPLETED { background: #16a34a; }
-
-.btn-primary {
-    background: #ff6b35;
-    color: #fff;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.btn-success {
-    background: #16a34a;
-    color: #fff;
-}
-/* Responsive */
 @media (max-width: 900px) {
+
+    .navbar {
+        padding: 16px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+
     .hero {
         flex-direction: column;
         text-align: center;
+        padding: 60px 24px;
     }
 
     .hero-text h1 {
@@ -225,5 +292,9 @@ body {
 
     .search-box {
         margin: auto;
+    }
+
+    .section {
+        padding: 50px 24px;
     }
 }

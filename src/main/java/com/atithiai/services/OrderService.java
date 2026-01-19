@@ -16,4 +16,7 @@ public interface OrderService {
     OrderMaster getOrderById(Long orderId);
     
     List<OrderMaster> getActiveOrders();
+    
+    OrderMaster createOrder(String customerName);
+    
 }

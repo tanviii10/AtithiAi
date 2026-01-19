@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>AtithiAI – Smart Food & Hospitality</title>
-    <link rel="stylesheet" th:href="@{/css/landing.css}">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
     
 </head>
@@ -48,31 +48,21 @@
     <h2 class="section-title">Explore Categories</h2>
 
     <div class="categories">
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/pizza.png">
-            <h4>Pizza</h4>
-        </div>
+    <a th:href="@{/order/menu?category=STARTER}" class="category-card">
+        <img src="/images/starter.png">
+        <h4>Starters</h4>
+    </a>
 
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/hamburger.png">
-            <h4>Burgers</h4>
-        </div>
+    <a th:href="@{/order/menu?category=MAIN}" class="category-card">
+        <img src="/images/main.png">
+        <h4>Main Course</h4>
+    </a>
 
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/fried-chicken.png">
-            <h4>Chicken</h4>
-        </div>
-
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/noodles.png">
-            <h4>Pasta</h4>
-        </div>
-
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/cupcake.png">
-            <h4>Desserts</h4>
-        </div>
-    </div>
+    <a th:href="@{/order/menu?category=DESSERT}" class="category-card">
+        <img src="/images/dessert.png">
+        <h4>Desserts</h4>
+    </a>
+</div>
 </section>
 
 <!-- Footer -->

@@ -3,18 +3,7 @@
 <head>
     <title>Order | AtithiAI</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: Poppins; background:#f8fafc; margin:0 }
-        header { background:#111827; color:white; padding:16px }
-        .tagline { font-family:'Tiro Devanagari Marathi'; color:#facc15 }
-        .container { padding:30px }
-        .menu-item {
-            background:white; padding:16px; border-radius:12px;
-            margin-bottom:12px; box-shadow:0 6px 16px rgba(0,0,0,.08)
-        }
-        button { background:#2563eb; color:white; border:none;
-                 padding:10px 16px; border-radius:8px; cursor:pointer }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 
 <body>
@@ -24,20 +13,21 @@
     <div class="tagline">अतिथी देवो भवः</div>
   </div>
 </header>
-<div class="container">
-    <h3>Start Your Order</h3>
+<h2 th:text="${category} + ' Menu'"></h2>
 
-    <form method="post" action="/order/create">
-        <input type="text" name="customerName" placeholder="Customer name" required>
-        <button type="submit">Create Order</button>
-    </form>
+<div class="menu-grid">
+    <div class="menu-card" th:each="item : ${items}">
+        <h4 th:text="${item.name}"></h4>
+        <p>₹ <span th:text="${item.price}"></span></p>
 
-    <h3 style="margin-top:30px">Menu</h3>
-
-    <div th:each="item : ${menu}" class="menu-item">
-        <strong th:text="${item.name}"></strong><br>
-        ₹<span th:text="${item.price}"></span>
+        <form th:action="@{/order/add-item}" method="post">
+            <input type="hidden" name="menuItemId" th:value="${item.id}">
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="submit">Add</button>
+        </form>
     </div>
 </div>
+
+<a href="/order/review">Review Order</a>
 </body>
 </html>
