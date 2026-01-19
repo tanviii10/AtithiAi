@@ -27,8 +27,8 @@
     <div class="hero-text">
         <h1>Order Smart.<br>Serve <span>Better</span>.</h1>
         <p>
-            AI-powered restaurant experience that connects food, people,
-            and hospitality — beautifully.
+            AI-powered restaurant experience that connects food and Peoples.
+                
         </p>
 
         <div class="search-box">
@@ -38,31 +38,35 @@
     </div>
 
     <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
-             alt="Food Image">
+     	<img th:src="@{/images/hero-food.jpg}" alt="Delicious Food">
     </div>
 </section>
 
 <!-- Categories -->
-<section class="section" id="categories">
+<section class="section">
     <h2 class="section-title">Explore Categories</h2>
 
     <div class="categories">
-    <a th:href="@{/order/menu?category=STARTER}" class="category-card">
-        <img src="/images/starter.png">
-        <h4>Starters</h4>
-    </a>
 
-    <a th:href="@{/order/menu?category=MAIN}" class="category-card">
-        <img src="/images/main.png">
-        <h4>Main Course</h4>
-    </a>
+        <!-- STARTERS -->
+        <a th:href="@{/order/menu(category='STARTER')}" class="category-card">
+            <img th:src="@{/images/starter.jpg}" alt="Starters">
+            <h4>Starters</h4>
+        </a>
 
-    <a th:href="@{/order/menu?category=DESSERT}" class="category-card">
-        <img src="/images/dessert.png">
-        <h4>Desserts</h4>
-    </a>
-</div>
+        <!-- MAIN COURSE -->
+        <a th:href="@{/order/menu(category='MAIN')}" class="category-card">
+            <img th:src="@{/images/main-course.jpg}" alt="Main Course">
+            <h4>Main Course</h4>
+        </a>
+
+        <!-- DESSERTS -->
+        <a th:href="@{/order/menu(category='DESSERT')}" class="category-card">
+            <img th:src="@{/images/dessert.jpg}" alt="Desserts">
+            <h4>Desserts</h4>
+        </a>
+
+    </div>
 </section>
 
 <!-- Footer -->

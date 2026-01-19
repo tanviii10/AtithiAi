@@ -59,14 +59,13 @@ public class CustomerOrderController {
     }
     
     @GetMapping("/order/menu")
-    public String showMenuByCategory(
+    public String showMenu(
             @RequestParam String category,
             Model model) {
 
-        List<MenuItem> items =
-                menuItemService.getAvailableItemsByCategory(category);
+        List<MenuItem> menuItems = menuItemService.getByCategory(category);
 
-        model.addAttribute("items", items);
+        model.addAttribute("menuItems", menuItems);
         model.addAttribute("category", category);
 
         return "order/order-menu";

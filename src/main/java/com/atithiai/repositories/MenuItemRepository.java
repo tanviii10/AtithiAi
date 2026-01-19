@@ -8,5 +8,5 @@ import com.atithiai.entities.MenuItem;
 
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
 	
-	List<MenuItem> findByCategoryAndAvailableTrue(String category);
+	List<MenuItem> findByCategoryIgnoreCaseAndAvailableTrue(String category);
 }

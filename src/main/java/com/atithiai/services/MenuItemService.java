@@ -31,9 +31,9 @@ public class MenuItemService {
     public void deleteMenuItem(Long id) {
         menuItemRepository.deleteById(id);
     }
-    
-    public List<MenuItem> getAvailableItemsByCategory(String category) {
-        return menuItemRepository.findByCategoryAndAvailableTrue(category);
+
+    public List<MenuItem> getByCategory(String category) {
+        return menuItemRepository.findByCategoryIgnoreCaseAndAvailableTrue(category);
     }
 
 }
