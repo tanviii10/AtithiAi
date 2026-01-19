@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitchen Dashboard | AtithiAI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f8fafc;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 16px 30px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .tagline {
+            font-family: 'Tiro Devanagari Marathi', serif;
+            font-size: 14px;
+            color: #facc15;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-id {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: white;
+        }
+
+        .CREATED { background: #f59e0b; }
+        .IN_PROGRESS { background: #2563eb; }
+
+        .items {
+            margin-top: 15px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .start {
+            background: #2563eb;
+            color: white;
+        }
+
+        .complete {
+            background: #16a34a;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">AtithiAI 🍽️</div>
+    <div class="tagline">अतिथी देवो भवः</div>
+</header>
+
+<div class="container">
+
+    <h2>Active Orders</h2>
+
+    <div th:if="${orders.isEmpty()}">
+        <p>No active orders 🎉</p>
+    </div>
+
+    <div th:each="order : ${orders}" class="order-card">
+
+        <div class="order-header">
+            <div class="order-id">Order #<span th:text="${order.id}"></span></div>
+            <div class="status" th:text="${order.status}"
+                 th:classappend="${order.status}"></div>
+        </div>
+
+        <p><strong>Customer:</strong> <span th:text="${order.customerName}"></span></p>
+
+        <div class="items">
+            <div th:each="item : ${order.orderItems}" class="item">
+                <span th:text="${item.menuItem.name}"></span>
+                <span>x<span th:text="${item.quantity}"></span></span>
+            </div>
+        </div>
+
+        <p><strong>Total:</strong> ₹<span th:text="${order.totalAmount}"></span></p>
+
+        <div class="actions">
+            <a th:if="${order.status.name() == 'CREATED'}"
+               th:href="@{'/api/orders/' + ${order.id} + '/start'}">
+                <button class="start">Start</button>
+            </a>
+
+            <a th:if="${order.status.name() == 'IN_PROGRESS'}"
+               th:href="@{'/api/orders/' + ${order.id} + '/complete'}">
+                <button class="complete">Complete</button>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -21,8 +21,9 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll()   // 🔥 APIs open
+                .requestMatchers("/api/**").permitAll() 
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/kitchen").permitAll()
                 .anyRequest().authenticated()
             )
             // 👇 IMPORTANT: disable redirect for APIs

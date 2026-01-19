@@ -2,6 +2,8 @@ package com.atithiai.entities;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "orderItem")
 public class OrderItem {
@@ -10,6 +12,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "orderId")
     private OrderMaster orderMaster;
