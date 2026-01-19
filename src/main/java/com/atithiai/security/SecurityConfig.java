@@ -26,9 +26,10 @@ public class SecurityConfig {
                 .requestMatchers("/kitchen").permitAll()
                 .requestMatchers("/order/**").permitAll()
                 .requestMatchers("/api/payments/**").permitAll()
+                .requestMatchers("/invoice/**").permitAll()
                 .anyRequest().authenticated()
             )
-            // 👇 IMPORTANT: disable redirect for APIs
+            //disable redirect for APIs
             .formLogin(form -> form.disable())
             .httpBasic(basic -> {});
 
