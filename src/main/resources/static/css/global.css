@@ -186,8 +186,32 @@ body {
     opacity: 0.9;
 }
 
+.card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+.badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #fff;
+}
 
+.badge.CREATED { background: #f59e0b; }
+.badge.IN_PROGRESS { background: #2563eb; }
+.badge.COMPLETED { background: #16a34a; }
 
+.btn-primary {
+    background: #ff6b35;
+    color: #fff;
+}
+
+.btn-success {
+    background: #16a34a;
+    color: #fff;
+}
 /* Responsive */
 @media (max-width: 900px) {
     .hero {

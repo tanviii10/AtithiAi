@@ -29,9 +29,15 @@ public class SecurityConfig {
                 .requestMatchers("/invoice/**").permitAll()
                 .anyRequest().authenticated()
             )
-            //disable redirect for APIs
-            .formLogin(form -> form.disable())
-            .httpBasic(basic -> {});
+            .formLogin(form -> form
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/", true)
+                    .permitAll()
+                )
+                .logout(logout -> logout
+                    .logoutSuccessUrl("/login?logout")
+                    .permitAll()
+                );
 
         return http.build();
     }
