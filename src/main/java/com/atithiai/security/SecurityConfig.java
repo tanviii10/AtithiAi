@@ -16,39 +16,21 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-	    http
-	        .csrf(csrf -> csrf.disable())
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/**").permitAll()   // 🔥 APIs open
+                .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            // 👇 IMPORTANT: disable redirect for APIs
+            .formLogin(form -> form.disable())
+            .httpBasic(basic -> {});
 
-	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers(
-	                "/", 
-	                "/login",
-	                "/css/**",
-	                "/images/**"
-	            ).permitAll()
-	            .requestMatchers("/menu/**").hasAnyRole("ADMIN", "STAFF")
-	            .anyRequest().authenticated()
-	        )
-
-	        .formLogin(form -> form
-	            .loginPage("/login")              // GET
-	            .loginProcessingUrl("/login")     // POST
-	            .defaultSuccessUrl("/menu/list", true)
-	            .failureUrl("/login?error=true")
-	            .permitAll()
-	        )
-
-	        .logout(logout -> logout
-	            .logoutUrl("/logout")
-	            .logoutSuccessUrl("/")
-	            .invalidateHttpSession(true)
-	            .deleteCookies("JSESSIONID")
-	        );
-
-	    return http.build();
-	}
+        return http.build();
+    }
 
 
 }
