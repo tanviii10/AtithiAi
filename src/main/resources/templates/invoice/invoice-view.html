@@ -1,60 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Invoice | AtithiAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 
 <body>
 
-<div class="invoice-box">
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+</div>
 
-    <div class="print">
-        <button onclick="window.print()">Print Invoice</button>
+<div class="invoice-card">
+
+    <div class="invoice-header">
+        <h3>Invoice</h3>
+        <span>Order #<strong th:text="${order.id}"></strong></span>
     </div>
 
-    <div class="header">
-        <div>
-            <div class="brand">AtithiAI 🍽️</div>
-            <div class="tagline">अतिथी देवो भवः</div>
+    <div class="invoice-status">
+        Payment Status:
+        <strong th:text="${payment.status}"></strong>
+    </div>
+
+    <div class="order-items">
+        <div class="order-item" th:each="item : ${order.orderItems}">
+            <div>
+                <strong th:text="${item.menuItem.name}"></strong>
+                × <span th:text="${item.quantity}"></span>
+            </div>
+            <div>
+                ₹ <span th:text="${item.price * item.quantity}"></span>
+            </div>
         </div>
-        <div>
-            <strong>Invoice</strong><br>
-            Order #: <span th:text="${order.id}"></span><br>
-            Date: <span th:text="${payment.paymentDate}"></span>
-        </div>
     </div>
 
-    <p><strong>Customer:</strong> <span th:text="${order.customerName}"></span></p>
-    <p><strong>Payment Mode:</strong> <span th:text="${payment.paymentMode}"></span></p>
-    <p><strong>Status:</strong> <span th:text="${payment.status}"></span></p>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="item : ${order.orderItems}">
-                <td th:text="${item.menuItem.name}"></td>
-                <td th:text="${item.quantity}"></td>
-                <td>₹<span th:text="${item.price}"></span></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="total">
-        Total: ₹<span th:text="${order.totalAmount}"></span>
+    <div class="order-total">
+        <span>Total Paid</span>
+        <span>₹ <strong th:text="${payment.amount}"></strong></span>
     </div>
 
-    <div class="footer">
-        Thank you for dining with us 🙏 <br>
-        Visit again — AtithiAI
+    <div class="invoice-footer">
+        <p>
+            Payment Mode:
+            <strong th:text="${payment.paymentMode}"></strong>
+        </p>
+
+        <a href="/" class="btn-secondary">Back to Home</a>
     </div>
+
+</div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
 </div>
 
 </body>

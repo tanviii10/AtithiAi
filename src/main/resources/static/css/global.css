@@ -512,3 +512,67 @@ button:hover {
     text-decoration: none;
 }
 
+/* Payment Form */
+.payment-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+/* Payment dropdown */
+.payment-select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #374151;
+    min-width: 160px;
+    cursor: pointer;
+    outline: none;
+}
+
+.payment-select:focus {
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.15);
+}
+/* Invoice */
+.invoice-card {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.invoice-header h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.invoice-status {
+    font-size: 14px;
+    color: #16a34a;
+    margin-bottom: 20px;
+}
+
+.invoice-footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}

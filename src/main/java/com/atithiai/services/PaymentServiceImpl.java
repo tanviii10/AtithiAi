@@ -29,19 +29,30 @@ public class PaymentServiceImpl implements PaymentService {
         OrderMaster order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
+        if (order.getStatus() == OrderStatus.COMPLETED) {
+            throw new RuntimeException("Payment already completed for this order");
+        }
+
         Payment payment = new Payment();
-        payment.setReferenceType("ORDER");        
+        payment.setReferenceType("ORDER");
         payment.setReferenceId(orderId);
         payment.setPaymentMode(paymentMode);
         payment.setAmount(order.getTotalAmount());
         payment.setStatus(PaymentStatus.PAID);
         payment.setPaymentDate(LocalDateTime.now());
 
-        // Business rule: payment completes order
         order.setStatus(OrderStatus.COMPLETED);
         orderRepository.save(order);
 
         return paymentRepository.save(payment);
     }
+
+    @Override
+    public Payment getPaymentByOrderId(Long orderId) {
+        return paymentRepository
+                .findTopByReferenceTypeAndReferenceIdOrderByPaymentDateDesc("ORDER", orderId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+    }
+
 
 }

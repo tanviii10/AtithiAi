@@ -65,9 +65,19 @@
                 Continue Ordering
             </a>
 
-            <a href="/payment/start" class="btn-primary">
-                Proceed to Payment
-            </a>
+ <form action="/payment/start" method="post" class="payment-form">
+    	<input type="hidden" name="orderId" th:value="${order.id}">
+
+    <select name="paymentMode" required class="payment-select">
+        <option value="">Select Payment Mode</option>
+        <option value="UPI">UPI</option>
+        <option value="CASH">Cash</option>
+    </select>
+
+    <button type="submit" class="btn-primary">
+        Proceed to Payment
+    </button>
+</form>
         </div>
 
     </div>

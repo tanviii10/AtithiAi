@@ -6,5 +6,7 @@ import com.atithiai.entities.Payment;
 @Service
 public interface PaymentService {
     Payment makePayment(Long orderId, String paymentMode);
+    
+    Payment getPaymentByOrderId(Long orderId);
 }
 

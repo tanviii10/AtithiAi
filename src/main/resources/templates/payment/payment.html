@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Tiro+Devanagari+Marathi&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 class="page-title">Payment</h2>
+
+    <div class="order-summary-card">
+
+        <div class="order-header">
+            <span>Order #<strong th:text="${order.id}"></strong></span>
+            <span>Total: ₹ <strong th:text="${order.totalAmount}"></strong></span>
+        </div>
+
+        <form th:action="@{/payment/pay}" method="post">
+
+            <input type="hidden" name="orderId" th:value="${order.id}">
+
+            <div class="payment-options">
+                <label>
+                    <input type="radio" name="paymentMode" value="CASH" checked>
+                    Cash
+                </label>
+
+                <label>
+                    <input type="radio" name="paymentMode" value="UPI">
+                    UPI
+                </label>
+
+                <label>
+                    <input type="radio" name="paymentMode" value="CARD">
+                    Card
+                </label>
+            </div>
+
+            <div class="order-actions">
+                <button type="submit" class="btn-primary">
+                    Pay Now
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
+
+</body>
+</html>

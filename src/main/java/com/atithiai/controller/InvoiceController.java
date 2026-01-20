@@ -7,33 +7,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.atithiai.entities.OrderMaster;
 import com.atithiai.entities.Payment;
-import com.atithiai.repositories.PaymentRepository;
 import com.atithiai.services.OrderService;
+import com.atithiai.services.PaymentService;
 
 @Controller
 public class InvoiceController {
-	
-	private final OrderService orderService;
-    private final PaymentRepository paymentRepository;
+
+    private final OrderService orderService;
+    private final PaymentService paymentService;
 
     public InvoiceController(OrderService orderService,
-                             PaymentRepository paymentRepository) {
+                             PaymentService paymentService) {
         this.orderService = orderService;
-        this.paymentRepository = paymentRepository;
+        this.paymentService = paymentService;
     }
 
-    @GetMapping("/invoice/{orderId}")
+    @GetMapping("/invoice/view/{orderId}")
     public String viewInvoice(@PathVariable Long orderId, Model model) {
 
         OrderMaster order = orderService.getOrderById(orderId);
-
-        Payment payment = paymentRepository
-                .findAll()
-                .stream()
-                .filter(p -> "ORDER".equals(p.getReferenceType())
-                        && p.getReferenceId().equals(orderId))
-                .findFirst()
-                .orElse(null);
+        Payment payment = paymentService.getPaymentByOrderId(orderId);
 
         model.addAttribute("order", order);
         model.addAttribute("payment", payment);
