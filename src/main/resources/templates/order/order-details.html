@@ -1,46 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Order Details | AtithiAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet">
+    <title>Order Review | AtithiAI</title>
+
     <link rel="stylesheet" th:href="@{/css/global.css}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Tiro+Devanagari+Marathi&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
-<header class="main-header">
-  <div>
-    <div class="logo">AtithiAI 🍽️</div>
-    <div class="tagline">अतिथी देवो भवः</div>
-  </div>
-</header>
-<div style="padding:30px">
 
-    <h2>Order #<span th:text="${order.id}"></span></h2>
-    <p>Status: <strong th:text="${order.status}"></strong></p>
-    <p>Total: ₹<strong th:text="${order.totalAmount}"></strong></p>
-
-    <div class="card">
-        <h3>Add Item</h3>
-        <form th:action="@{'/order/' + ${order.id} + '/add'}" method="post">
-            <select name="menuItemId">
-                <option th:each="item : ${menu}"
-                        th:value="${item.id}"
-                        th:text="${item.name + ' - ₹' + item.price}">
-                </option>
-            </select>
-            <input type="number" name="quantity" min="1" value="1">
-            <button type="submit">Add</button>
-        </form>
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
     </div>
 
-    <div class="card">
-        <h3>Items</h3>
-        <div th:each="item : ${order.orderItems}">
-            <span th:text="${item.menuItem.name}"></span>
-            x <span th:text="${item.quantity}"></span>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/order/menu?category=STARTER">Continue Ordering</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 class="page-title">Review Your Order</h2>
+
+    <div class="order-summary-card">
+
+        <div class="order-header">
+            <span>Order #<strong th:text="${order.id}"></strong></span>
+            <span class="status-badge" th:text="${order.status}"></span>
         </div>
+
+        <div class="order-items">
+            <div class="order-item"
+                 th:each="item : ${order.orderItems}">
+
+                <div class="item-left">
+                    <span class="item-name"
+                          th:text="${item.menuItem.name}"></span>
+                    <span class="item-qty">
+                        × <span th:text="${item.quantity}"></span>
+                    </span>
+                </div>
+
+                <div class="item-price">
+                    ₹ <span th:text="${item.price * item.quantity}"></span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Total -->
+        <div class="order-total">
+            <span>Total Amount</span>
+            <span>₹ <strong th:text="${order.totalAmount}"></strong></span>
+        </div>
+
+        <!-- Actions -->
+        <div class="order-actions">
+            <a href="/order/menu?category=STARTER" class="btn-secondary">
+                Continue Ordering
+            </a>
+
+            <a href="/payment/start" class="btn-primary">
+                Proceed to Payment
+            </a>
+        </div>
+
     </div>
 
 </div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
+
 </body>
 </html>

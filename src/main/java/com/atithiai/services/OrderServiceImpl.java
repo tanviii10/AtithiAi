@@ -101,5 +101,11 @@ public class OrderServiceImpl implements OrderService {
                 List.of(OrderStatus.CREATED, OrderStatus.IN_PROGRESS)
         );
     }
+
+	@Override
+	public OrderMaster createOrder(String customerName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

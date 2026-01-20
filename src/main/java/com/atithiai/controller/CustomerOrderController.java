@@ -14,9 +14,10 @@ import com.atithiai.services.OrderService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/order")
 public class CustomerOrderController {
-	
-	private final MenuItemService menuItemService;
+
+    private final MenuItemService menuItemService;
     private final OrderService orderService;
 
     public CustomerOrderController(MenuItemService menuItemService,
@@ -25,40 +26,8 @@ public class CustomerOrderController {
         this.orderService = orderService;
     }
 
-    //Show menu & start order
-    @GetMapping("/order")
-    public String showMenu(Model model) {
-        List<MenuItem> menu = menuItemService.getAllMenuItems();
-        model.addAttribute("menu", menu);
-        return "order/order-menu";
-    }
-
-    //Create order
-    @PostMapping("/order/create")
-    public String createOrder(@RequestParam String customerName) {
-        OrderMaster order = orderService.createOrder(null, customerName);
-        return "redirect:/order/" + order.getId();
-    }
-
-    //Order detail page
-    @GetMapping("/order/{orderId}")
-    public String orderDetails(@PathVariable Long orderId, Model model) {
-        model.addAttribute("order", orderService.getOrderById(orderId));
-        model.addAttribute("menu", menuItemService.getAllMenuItems());
-        return "order/order-details";
-    }
-
-    //Add item to order
-    @PostMapping("/order/{orderId}/add")
-    public String addItem(@PathVariable Long orderId,
-                          @RequestParam Long menuItemId,
-                          @RequestParam int quantity) {
-
-        orderService.addItemToOrder(orderId, menuItemId, quantity);
-        return "redirect:/order/" + orderId;
-    }
-    
-    @GetMapping("/order/menu")
+   
+    @GetMapping("/menu")
     public String showMenu(
             @RequestParam String category,
             Model model) {
@@ -70,39 +39,42 @@ public class CustomerOrderController {
 
         return "order/order-menu";
     }
-    
-    @PostMapping("/order/start")
-    public String startOrder(
-            @RequestParam String customerName,
-            HttpSession session) {
 
-        OrderMaster order = orderService.createOrder(customerName);
-        session.setAttribute("orderId", order.getId());
-
-        return "redirect:/order/menu?category=STARTER";
-    }
-    
-    @PostMapping("/order/add-item")
-    public String addItem(
+   
+    @PostMapping("/add")
+    public String addItemToCart(
             @RequestParam Long menuItemId,
             @RequestParam int quantity,
+            @RequestParam String category,
             HttpSession session) {
 
         Long orderId = (Long) session.getAttribute("orderId");
+
+        // Create order if not exists
+        if (orderId == null) {
+            OrderMaster order = orderService.createOrder(null, "Guest");
+            orderId = order.getId();
+            session.setAttribute("orderId", orderId);
+        }
 
         orderService.addItemToOrder(orderId, menuItemId, quantity);
 
-        return "redirect:/order/menu";
+        return "redirect:/order/menu?category=" + category;
     }
-    
-    @GetMapping("/order/review")
+
+   
+    @GetMapping("/review")
     public String reviewOrder(HttpSession session, Model model) {
 
         Long orderId = (Long) session.getAttribute("orderId");
-        OrderMaster order = orderService.getOrderById(orderId);
 
+        if (orderId == null) {
+            return "redirect:/";
+        }
+
+        OrderMaster order = orderService.getOrderById(orderId);
         model.addAttribute("order", order);
+
         return "order/order-details";
     }
-
 }

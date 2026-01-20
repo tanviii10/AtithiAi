@@ -33,13 +33,20 @@
                 <p class="price">₹ <span th:text="${item.price}"></span></p>
 
                 <form th:action="@{/order/add}" method="post">
-                    <input type="hidden" name="menuItemId" th:value="${item.id}">
+    				<input type="hidden" name="menuItemId" th:value="${item.id}">
+    				<input type="hidden" name="category" th:value="${category}">
+   					<div class="add-to-cart">
+    					<input type="number"
+         					    name="quantity"
+          						value="1"
+           						min="1"
+           						class="qty-input">
 
-                    <div class="qty-row">
-                        <input type="number" name="quantity" value="1" min="1">
-                        <button type="submit" class="add-btn">Add</button>
-                    </div>
-                </form>
+    			<button type="submit" class="btn-add">
+       						 Add
+    			</button>
+					</div>
+				</form>
             </div>
         </div>
 
