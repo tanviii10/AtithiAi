@@ -29,32 +29,42 @@
 </div>
 
 <!-- CONTENT -->
-<div class="container">
+<div class="container admin-page">
 
-    <div class="header">
-        <h2>Menu Items</h2>
+    <div class="page-header">
+        <h2>Menu Management</h2>
         <a href="/menu/add" class="add-btn">+ Add Item</a>
     </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price (₹)</th>
-            <th>Status</th>
-        </tr>
-        </thead>
+    <div class="table-card">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price (₹)</th>
+                <th>Status</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr th:each="item : ${menuItems}">
-            <td th:text="${item.name}"></td>
-            <td th:text="${item.category}"></td>
-            <td th:text="${item.price}"></td>
-            <td class="status" th:text="${item.available ? 'Available' : 'Unavailable'}"></td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr th:each="item : ${menuItems}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.category}"></td>
+                <td th:text="${item.price}"></td>
+
+                <td>
+                    <span th:if="${item.available}" class="status-pill available">
+                        Available
+                    </span>
+                    <span th:if="${!item.available}" class="status-pill unavailable">
+                        Unavailable
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 

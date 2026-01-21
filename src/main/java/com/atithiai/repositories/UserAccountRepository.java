@@ -11,4 +11,6 @@ import com.atithiai.entities.UserAccount;
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long>{
 
 	Optional<UserAccount> findByPhone(String phone);
+	
+	long countByRole(String role);
 }

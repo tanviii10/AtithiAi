@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+
+<body>
+<!-- Navbar -->
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+
+</div>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome back !</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+
+        <div class="stat-card gradient-blue">
+            <h3>Total Menu Items</h3>
+            <p class="stat-number" th:text="${menuCount}">0</p>
+            <span>Items listed</span>
+        </div>
+
+        <div class="stat-card gradient-green">
+            <h3>Total Orders</h3>
+            <p class="stat-number" th:text="${orderCount}">0</p>
+            <span>Orders placed</span>
+        </div>
+
+        <div class="stat-card gradient-orange">
+            <h3>Revenue</h3>
+            <p class="stat-number">
+   				 ₹ <span th:text="${revenue}">0</span>
+			</p>
+            <span>Total earnings</span>
+        </div>
+
+        <div class="stat-card gradient-purple">
+            <h3>Active Customers</h3>
+            <p class="stat-number" th:text="${customerCount}">0</p>
+            <span>Registered users</span>
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="actions-section">
+        <h2>Quick Actions</h2>
+
+        <div class="action-grid">
+            <a href="/menu/list" class="action-card">
+                <h3>🍽 Manage Menu</h3>
+                <p>Add, update or remove menu items</p>
+            </a>
+
+            <a href="#" class="action-card disabled">
+                <h3>📦 View Orders</h3>
+                <p>Track customer orders (coming soon)</p>
+            </a>
+
+            <a href="#" class="action-card disabled">
+                <h3>💳 Payments</h3>
+                <p>View transaction history</p>
+            </a>
+
+            <a href="/logout" class="action-card logout">
+                <h3>🚪 Logout</h3>
+                <p>Securely exit admin panel</p>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

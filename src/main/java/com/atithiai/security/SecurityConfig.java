@@ -3,44 +3,69 @@ package com.atithiai.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	}
 
-	@Bean
+    // DEV ONLY – Plain text passwords
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
             .csrf(csrf -> csrf.disable())
+
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll() 
-                .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
-                .requestMatchers("/kitchen").permitAll()
-                .requestMatchers("/order/**").permitAll()
-                .requestMatchers("/api/payments/**").permitAll()
-                .requestMatchers("/invoice/**").permitAll()
+
+                //Public
+                .requestMatchers(
+                        "/login",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**"
+                ).permitAll()
+
+                // ADMIN only
+                .requestMatchers("/admin/**", "/menu/**")
+                .hasRole("ADMIN")
+
+                //CUSTOMER only
+                .requestMatchers(
+                        "/index",
+                        "/menu/**",
+                        "/cart/**",
+                        "/order/**",
+                        "/payment/**",
+                        "/invoice/**"
+                ).hasRole("CUSTOMER")
+
+                //everything else
                 .anyRequest().authenticated()
             )
+
             .formLogin(form -> form
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/", true)
-                    .permitAll()
-                )
-                .logout(logout -> logout
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll()
-                );
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/postLogin", true)
+                .permitAll()
+            )
+
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            )
+
+            .exceptionHandling(ex ->
+                ex.accessDeniedPage("/access-denied")
+            );
 
         return http.build();
     }
-
-
 }

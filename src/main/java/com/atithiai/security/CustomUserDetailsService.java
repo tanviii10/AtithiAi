@@ -5,15 +5,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import com.atithiai.entities.UserAccount;
 import com.atithiai.repositories.UserAccountRepository;
-
-
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private final UserAccountRepository userRepo;
+    private final UserAccountRepository userRepo;
 
     public CustomUserDetailsService(UserAccountRepository userRepo) {
         this.userRepo = userRepo;
@@ -24,12 +23,13 @@ public class CustomUserDetailsService implements UserDetailsService {
             throws UsernameNotFoundException {
 
         UserAccount user = userRepo.findByPhone(phone)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("User not found"));
 
         return User.builder()
-                .username(user.getPhone())
-                .password(user.getPassword())
-                .roles(user.getRole())
+                .username(user.getPhone())   // login with phone
+                .password(user.getPassword()) // plain password 
+                .roles(user.getRole())       // ADMIN / CUSTOMER
                 .build();
     }
 }
