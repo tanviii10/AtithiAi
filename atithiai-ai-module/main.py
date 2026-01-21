@@ -1,40 +1,51 @@
 import pandas as pd
 import json
-from sklearn.cluster import KMeans
+from sklearn.tree import DecisionTreeClassifier
 
-# STEP 1: Load order data
-data = pd.read_csv("orders.csv")
+print("\n--- Food Demand Prediction Started ---")
 
-# STEP 2: Convert order_time to datetime
-data["order_time"] = pd.to_datetime(data["order_time"])
+# STEP 1: Load food demand data
+data = pd.read_csv("food_demand.csv")
 
-# STEP 3: Extract hour
-data["hour"] = data["order_time"].dt.hour
+# STEP 2: Convert category names to numbers
+data["category_code"] = data["category"].astype("category").cat.codes
 
-# STEP 4: Prepare data for ML
-X = data[["hour"]]
+# STEP 3: Create demand labels
+def demand_label(order_count):
+    if order_count >= 30:
+        return "HIGH"
+    elif order_count >= 15:
+        return "MEDIUM"
+    else:
+        return "LOW"
 
-# STEP 5: Apply K-Means clustering
-kmeans = KMeans(n_clusters=3, random_state=42)
-data["cluster"] = kmeans.fit_predict(X)
+data["demand"] = data["orders"].apply(demand_label)
 
-# STEP 6: Find peak cluster
-peak_cluster = data["cluster"].value_counts().idxmax()
+# STEP 4: Prepare input (X) and output (y)
+X = data[["category_code", "hour"]]
+y = data["demand"]
 
-# STEP 7: Extract peak hours
-peak_hours = sorted(data[data["cluster"] == peak_cluster]["hour"].unique())
+# STEP 5: Train Decision Tree model
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X, y)
 
-# 🔧 FIX: convert numpy int to normal Python int
-peak_hours = [int(h) for h in peak_hours]
+# STEP 6: Predict demand for each category (example hour = 13)
+result = {}
 
-# STEP 8: Prepare JSON output
-result = {
-    "peak_hours": peak_hours,
-    "description": "Predicted peak business hours based on historical order data"
-}
+for category in data["category"].unique():
+    code = data[data["category"] == category]["category_code"].iloc[0]
 
-# STEP 9: Save JSON file
-with open("ai_output/peak_hours.json", "w") as f:
+    input_df = pd.DataFrame(
+        [[code, 13]],
+        columns=["category_code", "hour"]
+    )
+
+    prediction = model.predict(input_df)[0]
+    result[category] = prediction
+
+# STEP 7: Save output as JSON
+with open("ai_output/food_demand.json", "w") as f:
     json.dump(result, f, indent=4)
 
-print("AI Output generated successfully")
+print("Food demand prediction completed")
+print(result)
