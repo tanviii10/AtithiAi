@@ -1,3 +1,7 @@
 {
     "peak_hours": [
-        
+        19,
+        20
+    ],
+    "description": "Predicted peak business hours based on historical order data"
+}
