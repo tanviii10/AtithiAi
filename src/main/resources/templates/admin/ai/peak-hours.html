@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AI Peak Hours | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+
+    <div class="nav-links">
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 class="page-title">AI Insight: Peak Business Hours</h2>
+
+    <div class="order-summary-card">
+
+        <p th:text="${description}" style="margin-bottom:20px;"></p>
+
+        <h3>Peak Hours</h3>
+
+        <ul>
+            <li th:each="hour : ${peakHours}">
+                <strong th:text="${hour}"></strong>:00
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
+
+</body>
+</html>

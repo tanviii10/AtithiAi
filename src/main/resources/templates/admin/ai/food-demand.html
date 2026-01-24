@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AI Food Demand | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+
+    <div class="nav-links">
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/ai/peak-hours">Peak Hours</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 class="page-title">AI Insight: Food Demand Prediction</h2>
+
+    <div class="order-summary-card">
+
+        <table style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align:left;">Category</th>
+                    <th style="text-align:left;">Demand Level</th>
+                </tr>
+            </thead>
+
+            <tbody>
+    <tr th:each="entry : ${demandData}">
+        <td th:text="${entry.key}"></td>
+        <td>
+            <span th:text="${entry.value}"
+                  th:class="'status-badge ' + 
+                            (${entry.value} == 'HIGH' ? 'high' : 
+                             ${entry.value} == 'MEDIUM' ? 'medium' : 'low')">
+            </span>
+        </td>
+    </tr>
+</tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
+
+</body>
+</html>
