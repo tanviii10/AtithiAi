@@ -91,3 +91,48 @@ with open("ai_output/menu_optimization.json", "w") as f:
     json.dump(menu_insights, f, indent=4)
 
 print("Menu optimization insights generated")
+
+print("\n--- Dish Explanation AI Started ---")
+
+# STEP 1: Load dish info from CSV
+dish_df = pd.read_csv("dish_info.csv")
+
+# STEP 2: Convert to dictionary
+dish_dict = {}
+for _, row in dish_df.iterrows():
+    dish_dict[row["dish_name"]] = {
+        "ingredients": row["ingredients"],
+        "spice_level": row["spice_level"],
+        "taste": row["taste"],
+        "speciality": row["speciality"]
+    }
+
+# STEP 3: Simulate dish name coming from UI / DB
+dish_name = "Gulab Jamun"   # change this to test
+
+# STEP 4: Generate explanation
+if dish_name in dish_dict:
+    info = dish_dict[dish_name]
+    explanation = (
+        f"{dish_name} is prepared using {info['ingredients']}. "
+        f"It has a {info['spice_level']} spice level and a "
+        f"{info['taste']} taste. "
+        f"Speciality: {info['speciality']}."
+    )
+else:
+    explanation = (
+        f"{dish_name} is a popular dish. "
+        "Detailed information is currently not available."
+    )
+
+# STEP 5: Save output
+dish_output = {
+    "dish_name": dish_name,
+    "explanation": explanation
+}
+
+with open("ai_output/dish_explanation.json", "w") as f:
+    json.dump(dish_output, f, indent=4)
+
+print("Dish explanation generated")
+print(explanation)
