@@ -49,3 +49,45 @@ with open("ai_output/food_demand.json", "w") as f:
 
 print("Food demand prediction completed")
 print(result)
+
+
+print("\n--- Menu Optimization Insights Started ---")
+
+# STEP 1: Load food demand data
+data = pd.read_csv("food_demand.csv")
+
+# STEP 2: Recreate demand labels (same as Feature 2)
+def demand_label(order_count):
+    if order_count >= 30:
+        return "HIGH"
+    elif order_count >= 15:
+        return "MEDIUM"
+    else:
+        return "LOW"
+
+data["demand"] = data["orders"].apply(demand_label)
+
+# STEP 3: Generate optimization insights
+insights = []
+
+for category in data["category"].unique():
+    category_data = data[data["category"] == category]
+    avg_orders = category_data["orders"].mean()
+    demand = demand_label(avg_orders)
+
+    if demand == "HIGH":
+        insights.append(f"Promote {category} items during peak hours")
+    elif demand == "MEDIUM":
+        insights.append(f"Maintain current strategy for {category} items")
+    else:
+        insights.append(f"Review or replace low-performing {category} items")
+
+# STEP 4: Save insights to JSON
+menu_insights = {
+    "menu_optimization_insights": insights
+}
+
+with open("ai_output/menu_optimization.json", "w") as f:
+    json.dump(menu_insights, f, indent=4)
+
+print("Menu optimization insights generated")
