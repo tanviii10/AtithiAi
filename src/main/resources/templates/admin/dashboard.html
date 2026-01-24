@@ -6,13 +6,29 @@
 </head>
 
 <body>
-<!-- Navbar -->
 <div class="navbar">
     <div class="brand">
         <div class="logo-text">AtithiAI 🍽️</div>
         <div class="tagline">अतिथी देवो भवः</div>
     </div>
 
+    <div class="nav-links">
+
+        <a href="/admin/dashboard">Dashboard</a>
+
+        <div class="dropdown">
+            <a class="dropbtn">AI Insights ▾</a>
+            <div class="dropdown-content">
+                <a href="/admin/ai/peak-hours">Peak Hours</a>
+                <a href="/admin/ai/food-demand">Food Demand</a>
+                <a href="/admin/ai/menu-optimization">Menu Optimization</a>
+                <a href="/admin/ai/dish-explanation">Dish Explanation</a>
+            </div>
+        </div>
+
+        <a href="/menu/list">Manage Menu</a>
+        <a href="/logout">Logout</a>
+    </div>
 </div>
 
 <div class="dashboard-container">
@@ -55,31 +71,40 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="actions-section">
-        <h2>Quick Actions</h2>
+<div class="actions-section">
+    <h2>Quick Actions</h2>
 
-        <div class="action-grid">
-            <a href="/menu/list" class="action-card">
-                <h3>🍽 Manage Menu</h3>
-                <p>Add, update or remove menu items</p>
-            </a>
+    <div class="action-grid">
 
-            <a href="#" class="action-card disabled">
-                <h3>📦 View Orders</h3>
-                <p>Track customer orders (coming soon)</p>
-            </a>
+        <!-- AI INSIGHTS (FOCUS CARD) -->
+        <a href="/admin/ai/peak-hours" class="action-card ai-focus">
+            <h3>🤖 AI Insights</h3>
+            <p>Peak hours, demand, menu optimization & dish insights</p>
+            <span class="badge">AI POWERED</span>
+        </a>
 
-            <a href="#" class="action-card disabled">
-                <h3>💳 Payments</h3>
-                <p>View transaction history</p>
-            </a>
+        <a href="/menu/list" class="action-card">
+            <h3>🍽 Manage Menu</h3>
+            <p>Add, update or remove menu items</p>
+        </a>
 
-            <a href="/logout" class="action-card logout">
-                <h3>🚪 Logout</h3>
-                <p>Securely exit admin panel</p>
-            </a>
-        </div>
+        <a href="#" class="action-card disabled">
+            <h3>📦 View Orders</h3>
+            <p>Track customer orders (coming soon)</p>
+        </a>
+
+        <a href="#" class="action-card disabled">
+            <h3>💳 Payments</h3>
+            <p>View transaction history</p>
+        </a>
+
+        <a href="/logout" class="action-card logout">
+            <h3>🚪 Logout</h3>
+            <p>Securely exit admin panel</p>
+        </a>
+
     </div>
+</div>
 
 </div>
 

@@ -16,8 +16,27 @@
     </div>
 
     <div class="nav-links">
+
         <a href="/">Home</a>
-        <a href="#categories">Categories</a>
+
+        <!-- ================= CUSTOMER ONLY ================= -->
+        <div class="dropdown" sec:authorize="hasRole('CUSTOMER')">
+            <a href="#" class="dropbtn">AI Insights ▾</a>
+            <div class="dropdown-content">
+                <a href="/ai/menu-optimization">Menu Optimization Insights</a>
+                <a href="/ai/dish-explanation">AI Dish Explanation</a>
+            </div>
+        </div>
+
+        <div class="dropdown" sec:authorize="hasRole('CUSTOMER')">
+            <a href="#" class="dropbtn">Dashboard ▾</a>
+            <div class="dropdown-content">
+                <a href="/table/book">Book Table</a>
+                <a href="/reviews">Reviews / Suggestions</a>
+            </div>
+        </div>
+
+        <a href="/logout">Logout</a>
     </div>
 </div>
 
