@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AI Insights | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+
+    <div class="nav-links">
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-header">
+        <h1>AI Insights</h1>
+        <p>Smart intelligence powered by data & AI</p>
+    </div>
+
+    <div class="action-grid">
+
+        <a href="/admin/ai/peak-hours" class="action-card">
+            <h3>⏰ Peak Hours</h3>
+            <p>Identify busiest business hours</p>
+        </a>
+
+        <a href="/admin/ai/food-demand" class="action-card">
+            <h3>📊 Food Demand</h3>
+            <p>Category-wise demand prediction</p>
+        </a>
+
+        <a href="/admin/ai/menu-optimization" class="action-card">
+            <h3>📈 Menu Optimization</h3>
+            <p>Improve menu performance</p>
+        </a>
+
+        <a href="/admin/ai/dish-explanation" class="action-card">
+            <h3>🍽 Dish Explanation</h3>
+            <p>AI-powered dish descriptions</p>
+        </a>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
+
+</body>
+</html>

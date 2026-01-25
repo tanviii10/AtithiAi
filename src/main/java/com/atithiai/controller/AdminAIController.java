@@ -36,8 +36,8 @@ public class AdminAIController {
     //Food Demand
     @GetMapping("/food-demand")
     public String foodDemand(Model model) {
-        Map<String, String> demand = aiInsightService.getFoodDemand();
-        model.addAttribute("demandMap", demand);
+        Map<String, String> foodDemand = aiInsightService.getFoodDemand();
+        model.addAttribute("foodDemand", foodDemand);
         return "admin/ai/food-demand";
     }
 
@@ -64,6 +64,11 @@ public class AdminAIController {
 
         model.addAttribute("dish", data);
         return "admin/ai/dish-explanation";
+    }
+
+    @GetMapping("")
+    public String aiDashboard() {
+        return "admin/ai/index";
     }
 
 }

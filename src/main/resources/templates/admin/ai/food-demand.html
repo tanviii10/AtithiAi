@@ -14,45 +14,41 @@
     </div>
 
     <div class="nav-links">
+    	<a href="/admin/ai">AI Insights</a>
         <a href="/admin/dashboard">Dashboard</a>
-        <a href="/admin/ai/peak-hours">Peak Hours</a>
         <a href="/logout">Logout</a>
     </div>
 </div>
 
-<div class="container">
+<div class="ai-card">
 
-    <h2 class="page-title">AI Insight: Food Demand Prediction</h2>
+    <h3 class="ai-card-title">Category-wise Demand Levels</h3>
 
-    <div class="order-summary-card">
+    <table class="ai-table">
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Demand Level</th>
+        </tr>
+        </thead>
 
-        <table style="width:100%; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th style="text-align:left;">Category</th>
-                    <th style="text-align:left;">Demand Level</th>
-                </tr>
-            </thead>
-<tbody>
-    <div th:each="entry : ${demandMap}">
-    <div class="ai-card">
-        <span class="ai-title" th:text="${entry.key}"></span>
+        <tbody>
+<tr th:each="entry : ${foodDemand}">
+    <td th:text="${entry.key}">CATEGORY</td>
 
+    <td>
         <span class="status-badge"
               th:classappend="
                 ${entry.value} == 'HIGH' ? ' high' :
                 (${entry.value} == 'MEDIUM' ? ' medium' : ' low')"
               th:text="${entry.value}">
+            LEVEL
         </span>
-    </div>
-</div>
+    </td>
+</tr>
 </tbody>
 
-
-
-        </table>
-
-    </div>
+    </table>
 
 </div>
 
