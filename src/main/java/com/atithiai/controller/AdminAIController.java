@@ -21,13 +21,6 @@ public class AdminAIController {
         this.aiInsightService = aiInsightService;
     }
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String test() {
-        System.out.println("ADMIN AI TEST HIT");
-        return "ADMIN AI OK";
-    }
-    
     //Peak Hours
     @GetMapping("/peak-hours")
     public String peakHours(Model model) {
