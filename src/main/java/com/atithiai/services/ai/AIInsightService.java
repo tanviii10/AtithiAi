@@ -9,7 +9,7 @@ public interface AIInsightService {
 
     Map<String, String> getFoodDemand();
 
-    List<String> getMenuOptimizationInsights();
+    Map<String, Object> getMenuOptimizationInsights();
 
-    Map<String, String> getDishExplanation(String dishName);
+    Map<String, Object> getDishExplanation(String dishName);
 }

@@ -12,11 +12,13 @@ import java.util.Map;
 @Service
 public class AIInsightServiceImpl implements AIInsightService {
 
+
+	private final ObjectMapper objectMapper = new ObjectMapper();
 	private static final String PEAK_HOURS_FILE =
             "atithiai-ai-module/ai_output/peak_hours.json";
 
-	private final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String AI_OUTPUT_PATH = "ai_output/";
+    private static final String MENU_OPTIMIZATION_PATH =
+            "ai_output/menu_optimization.json";
     
 
     //Peak Hours
@@ -43,25 +45,35 @@ public class AIInsightServiceImpl implements AIInsightService {
 
     //Menu Optimization
     @Override
-    public List<String> getMenuOptimizationInsights() {
+    public Map<String, Object> getMenuOptimizationInsights() {
         try {
-            File file = new File(AI_OUTPUT_PATH + "menu_optimization.json");
-            Map<String, List<String>> data =
-                    objectMapper.readValue(file, new TypeReference<>() {});
-            return data.get("menu_optimization_insights");
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(
+                    new File(MENU_OPTIMIZATION_PATH),
+                    new TypeReference<Map<String, Object>>() {}
+            );
         } catch (Exception e) {
-            throw new RuntimeException("Failed to read menu optimization AI output", e);
+            throw new RuntimeException("Failed to load Menu Optimization Insights", e);
+        }
+    }
+    
+    //Dish Explanation
+    @Override
+    public Map<String, Object> getDishExplanation(String dishName) {
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            File file = new File("ai_output/dish_explanation.json");
+
+            Map<String, Object> data =
+                    mapper.readValue(file, Map.class);
+
+            return data;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read dish explanation JSON", e);
         }
     }
 
-    //Dish Explanation
-    @Override
-    public Map<String, String> getDishExplanation(String dishName) {
-        try {
-            File file = new File(AI_OUTPUT_PATH + "dish_explanation.json");
-            return objectMapper.readValue(file, new TypeReference<>() {});
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read dish explanation AI output", e);
-        }
-    }
 }

@@ -34,26 +34,18 @@
                 </tr>
             </thead>
 <tbody>
-    <tr th:each="entry : ${demandData}">
-        <td th:text="${entry.key}"></td>
+    <div th:each="entry : ${demandMap}">
+    <div class="ai-card">
+        <span class="ai-title" th:text="${entry.key}"></span>
 
-        <td>
-            <span th:if="${entry.value == 'HIGH'}"
-                  class="status-badge high"
-                  th:text="${entry.value}">
-            </span>
-
-            <span th:if="${entry.value == 'MEDIUM'}"
-                  class="status-badge medium"
-                  th:text="${entry.value}">
-            </span>
-
-            <span th:if="${entry.value == 'LOW'}"
-                  class="status-badge low"
-                  th:text="${entry.value}">
-            </span>
-        </td>
-    </tr>
+        <span class="status-badge"
+              th:classappend="
+                ${entry.value} == 'HIGH' ? ' high' :
+                (${entry.value} == 'MEDIUM' ? ' medium' : ' low')"
+              th:text="${entry.value}">
+        </span>
+    </div>
+</div>
 </tbody>
 
 

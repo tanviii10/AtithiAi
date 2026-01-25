@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu Optimization | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 class="page-title">📊 Menu Optimization Insights</h2>
+
+    <div class="order-summary-card">
+
+        <ul class="ai-insight-list">
+            <li th:each="insight : ${insights}"
+                th:text="${insight}">
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
+
+</body>
+</html>

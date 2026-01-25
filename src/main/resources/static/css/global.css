@@ -899,3 +899,16 @@ button:hover {
     padding: 4px 10px;
     border-radius: 12px;
 }
+.ai-insight-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ai-insight-list li {
+    background: #fff7ed;
+    border-left: 6px solid #ff6b35;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+}
