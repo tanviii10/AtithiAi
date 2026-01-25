@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atithiai.services.ai.AIInsightService;
 
@@ -20,9 +21,19 @@ public class AdminAIController {
         this.aiInsightService = aiInsightService;
     }
 
+    @GetMapping("/test")
+    @ResponseBody
+    public String test() {
+        System.out.println("ADMIN AI TEST HIT");
+        return "ADMIN AI OK";
+    }
+    
     //Peak Hours
     @GetMapping("/peak-hours")
     public String peakHours(Model model) {
+    	
+    	System.out.println("ADMIN AI CONTROLLER: peak-hours endpoint HIT");
+
         Map<String, Object> data = aiInsightService.getPeakHours();
         model.addAttribute("peakHours", data.get("peak_hours"));
         model.addAttribute("description", data.get("description"));
@@ -55,7 +66,6 @@ public class AdminAIController {
     @GetMapping("/dish-explanation")
     public String dishExplanation(Model model) {
 
-        // for now static dish (later we’ll make it dynamic)
         Map<String, Object> data =
                 aiInsightService.getDishExplanation("Gulab Jamun");
 

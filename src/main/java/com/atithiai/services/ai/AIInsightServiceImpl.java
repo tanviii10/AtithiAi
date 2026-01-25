@@ -2,78 +2,72 @@ package com.atithiai.services.ai;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 @Service
 public class AIInsightServiceImpl implements AIInsightService {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-	private final ObjectMapper objectMapper = new ObjectMapper();
-	private static final String PEAK_HOURS_FILE =
-            "atithiai-ai-module/ai_output/peak_hours.json";
+    @Value("${ai.output.path}")
+    private String aiOutputPath;
 
-    private static final String MENU_OPTIMIZATION_PATH =
-            "ai_output/menu_optimization.json";
-    
+    private File getAIFile(String fileName) {
+        return new File(aiOutputPath + File.separator + fileName);
+    }
 
-    //Peak Hours
     @Override
     public Map<String, Object> getPeakHours() {
+    	
+    	System.out.println("USER DIR =  " + System.getProperty("user.dir"));
+
         try {
-            File file = new File(PEAK_HOURS_FILE);
-            return objectMapper.readValue(file, Map.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to read peak hours AI data", e);
+            return objectMapper.readValue(
+                    getAIFile("peak_hours.json"),
+                    Map.class
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Peak hours AI file not found", e);
         }
     }
 
-    //Food Demand
     @Override
     public Map<String, String> getFoodDemand() {
         try {
-            File file = new File("atithiai-ai-module/ai_output/food_demand.json");
-            return objectMapper.readValue(file, Map.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to read food demand AI data", e);
+            return objectMapper.readValue(
+                    getAIFile("food_demand.json"),
+                    new TypeReference<Map<String, String>>() {}
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Food demand AI file not found", e);
         }
     }
 
-    //Menu Optimization
     @Override
     public Map<String, Object> getMenuOptimizationInsights() {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(
-                    new File(MENU_OPTIMIZATION_PATH),
+            return objectMapper.readValue(
+                    getAIFile("menu_optimization.json"),
                     new TypeReference<Map<String, Object>>() {}
             );
         } catch (Exception e) {
-            throw new RuntimeException("Failed to load Menu Optimization Insights", e);
+            throw new RuntimeException("Menu optimization AI file not found", e);
         }
     }
-    
-    //Dish Explanation
+
     @Override
     public Map<String, Object> getDishExplanation(String dishName) {
-
         try {
-            ObjectMapper mapper = new ObjectMapper();
-
-            File file = new File("ai_output/dish_explanation.json");
-
-            Map<String, Object> data =
-                    mapper.readValue(file, Map.class);
-
-            return data;
-
+            return objectMapper.readValue(
+                    getAIFile("dish_explanation.json"),
+                    new TypeReference<Map<String, Object>>() {}
+            );
         } catch (Exception e) {
-            throw new RuntimeException("Failed to read dish explanation JSON", e);
+            throw new RuntimeException("Dish explanation AI file not found", e);
         }
     }
-
 }
