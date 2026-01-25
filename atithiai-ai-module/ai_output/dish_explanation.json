@@ -1,4 +1,92 @@
 {
-    "dish_name": "Gulab Jamun",
-    "explanation": "Gulab Jamun is prepared using Milk solids, sugar syrup. It has a Low spice level and a Sweet and rich taste. Speciality: Classic Indian dessert."
+    "Paneer Butter Masala": {
+        "ingredients": "Paneer, tomato, butter, cream, cashew",
+        "spice_level": "Low",
+        "taste": "Creamy and mildly sweet",
+        "speciality": "Classic North Indian paneer curry"
+    },
+    "Paneer Tikka": {
+        "ingredients": "Paneer, yogurt, spices",
+        "spice_level": "Medium",
+        "taste": "Smoky and spicy",
+        "speciality": "Tandoor-style grilled starter"
+    },
+    "Veg Spring Roll": {
+        "ingredients": "Vegetables, wrappers, spices",
+        "spice_level": "Low",
+        "taste": "Crispy and savory",
+        "speciality": "Popular Indo-Chinese starter"
+    },
+    "Hara Bhara Kabab": {
+        "ingredients": "Spinach, peas, potato, spices",
+        "spice_level": "Low",
+        "taste": "Mild and herby",
+        "speciality": "Healthy green kabab"
+    },
+    "Crispy Corn": {
+        "ingredients": "Corn, spices, herbs",
+        "spice_level": "Medium",
+        "taste": "Crunchy and spicy",
+        "speciality": "Popular crispy starter"
+    },
+    "Cheese Balls": {
+        "ingredients": "Cheese, potato, breadcrumbs",
+        "spice_level": "Low",
+        "taste": "Cheesy and crunchy",
+        "speciality": "Deep-fried cheese snack"
+    },
+    "Veg Kolhapuri": {
+        "ingredients": "Mixed vegetables, coconut, red spices",
+        "spice_level": "High",
+        "taste": "Spicy and bold",
+        "speciality": "Traditional Maharashtrian curry"
+    },
+    "Dal Tadka": {
+        "ingredients": "Yellow lentils, ghee, garlic, spices",
+        "spice_level": "Low",
+        "taste": "Comforting and savory",
+        "speciality": "Classic Indian dal"
+    },
+    "Veg Handi": {
+        "ingredients": "Mixed vegetables, onion gravy",
+        "spice_level": "Medium",
+        "taste": "Rich and mildly spicy",
+        "speciality": "Vegetable curry cooked in handi"
+    },
+    "Mix Veg Curry": {
+        "ingredients": "Seasonal vegetables, spices",
+        "spice_level": "Medium",
+        "taste": "Balanced and homely",
+        "speciality": "Everyday Indian vegetable curry"
+    },
+    "Gulab Jamun": {
+        "ingredients": "Milk solids, sugar syrup",
+        "spice_level": "Low",
+        "taste": "Sweet and rich",
+        "speciality": "Classic Indian dessert"
+    },
+    "Chocolate Brownie": {
+        "ingredients": "Chocolate, flour, butter",
+        "spice_level": "Low",
+        "taste": "Rich and chocolaty",
+        "speciality": "Soft baked chocolate dessert"
+    },
+    "Ice Cream Sundae": {
+        "ingredients": "Milk, cream, sugar, toppings",
+        "spice_level": "Low",
+        "taste": "Cold and sweet",
+        "speciality": "Layered ice cream dessert"
+    },
+    "Rasgulla": {
+        "ingredients": "Chenna, sugar syrup",
+        "spice_level": "Low",
+        "taste": "Soft and juicy",
+        "speciality": "Bengali sweet dessert"
+    },
+    "Kesar Pista Kulfi": {
+        "ingredients": "Milk, saffron, pistachio",
+        "spice_level": "Low",
+        "taste": "Rich and aromatic",
+        "speciality": "Traditional Indian frozen dessert"
+    }
 }

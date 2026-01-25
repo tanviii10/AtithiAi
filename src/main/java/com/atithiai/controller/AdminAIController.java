@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atithiai.services.ai.AIInsightService;
@@ -21,6 +23,11 @@ public class AdminAIController {
         this.aiInsightService = aiInsightService;
     }
 
+    @GetMapping("")
+    public String aiDashboard() {
+        return "admin/ai/index";
+    }
+    
     //Peak Hours
     @GetMapping("/peak-hours")
     public String peakHours(Model model) {
@@ -57,18 +64,26 @@ public class AdminAIController {
 
     //Dish Explanation
     @GetMapping("/dish-explanation")
-    public String dishExplanation(Model model) {
+    public String dishExplanationPage(Model model) {
 
-        Map<String, Object> data =
-                aiInsightService.getDishExplanation("Gulab Jamun");
+        model.addAttribute("dishes",
+                aiInsightService.getAllDishNames());
 
-        model.addAttribute("dish", data);
         return "admin/ai/dish-explanation";
     }
 
-    @GetMapping("")
-    public String aiDashboard() {
-        return "admin/ai/index";
-    }
+    @PostMapping("/dish-explanation")
+    public String dishExplanationResult(
+            @RequestParam String dishName,
+            Model model) {
 
+        model.addAttribute("dishes",
+                aiInsightService.getAllDishNames());
+
+        model.addAttribute("selectedDish", dishName);
+        model.addAttribute("info",
+                aiInsightService.getDishExplanation(dishName));
+
+        return "admin/ai/dish-explanation";
+    }
 }

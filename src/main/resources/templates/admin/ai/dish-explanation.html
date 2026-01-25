@@ -25,25 +25,59 @@
 
     <h2 class="page-title">AI Dish Explanation</h2>
 
+    <!-- Dish Selection -->
     <div class="order-summary-card">
 
-        <h3 th:text="${dish.dish_name}">Dish Name</h3>
+        <form method="post" th:action="@{/admin/ai/dish-explanation}"
+              class="ai-form">
 
-        <p style="margin-top:15px; line-height:1.6; color:#374151;"
-           th:text="${dish.explanation}">
-            Dish explanation goes here
-        </p>
+            <label class="form-label">Select Dish</label>
 
-        <div class="order-actions" style="margin-top:30px;">
-            <a href="/admin/dashboard" class="btn-secondary">
-                Back to Dashboard
-            </a>
+            <select name="dishName" required class="select-box">
+                <option value="">-- Choose a Dish --</option>
+
+                <option th:each="dish : ${dishes}"
+                        th:value="${dish}"
+                        th:text="${dish}"
+                        th:selected="${dish == selectedDish}">
+                </option>
+            </select>
+
+            <button type="submit" class="btn-primary">
+                Get AI Explanation
+            </button>
+        </form>
+
+    </div>
+
+    <!-- Result -->
+    <div th:if="${info != null}" class="order-summary-card ai-result-card">
+
+        <h3 th:text="${selectedDish}"></h3>
+
+        <div class="ai-info-row">
+            <strong>Ingredients:</strong>
+            <span th:text="${info.ingredients}"></span>
+        </div>
+
+        <div class="ai-info-row">
+            <strong>Spice Level:</strong>
+            <span th:text="${info.spice_level}"></span>
+        </div>
+
+        <div class="ai-info-row">
+            <strong>Taste:</strong>
+            <span th:text="${info.taste}"></span>
+        </div>
+
+        <div class="ai-info-row">
+            <strong>Speciality:</strong>
+            <span th:text="${info.speciality}"></span>
         </div>
 
     </div>
 
 </div>
-
 <div class="footer">
     © 2026 AtithiAI · Smart Hospitality Platform
 </div>

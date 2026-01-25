@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class AIInsightServiceImpl implements AIInsightService {
@@ -25,7 +26,7 @@ public class AIInsightServiceImpl implements AIInsightService {
         return file;
     }
 
-    // 1️⃣ Peak Hours
+    //Peak Hours
     @Override
     public Map<String, Object> getPeakHours() {
         try {
@@ -39,7 +40,7 @@ public class AIInsightServiceImpl implements AIInsightService {
         }
     }
 
-    // 2️⃣ Food Demand
+    //Food Demand
     @Override
     public Map<String, String> getFoodDemand() {
         try {
@@ -53,7 +54,7 @@ public class AIInsightServiceImpl implements AIInsightService {
         }
     }
 
-    // 3️⃣ Menu Optimization
+    //Menu Optimization
     @Override
     public Map<String, Object> getMenuOptimizationInsights() {
         try {
@@ -66,18 +67,32 @@ public class AIInsightServiceImpl implements AIInsightService {
             throw new RuntimeException("Failed to load menu optimization AI data", e);
         }
     }
+    
+    @Override
+    public Set<String> getAllDishNames() {
+        try {
+            File file = getFile("dish_explanation.json");
+            Map<String, Object> data =
+                    objectMapper.readValue(file, Map.class);
+            return data.keySet();
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to load dish list", e);
+        }
+    }
 
-    // 4️⃣ Dish Explanation
+    //Dish Explanation
     @Override
     public Map<String, Object> getDishExplanation(String dishName) {
         try {
-            return objectMapper.readValue(
-                    getFile("dish_explanation.json"),
-                    new TypeReference<Map<String, Object>>() {}
-            );
+            File file = getFile("dish_explanation.json");
+            Map<String, Map<String, Object>> data =
+                    objectMapper.readValue(file, Map.class);
+
+            return data.getOrDefault(dishName, Map.of(
+                    "error", "Dish information not found"
+            ));
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to load dish explanation AI data", e);
+            throw new RuntimeException("Unable to read dish explanation", e);
         }
     }
 }
