@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Menu Optimization | AtithiAI</title>
+    <title>AI Menu Optimization | AtithiAI</title>
     <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 
 <body>
 
+<!-- Navbar -->
 <div class="navbar">
     <div class="brand">
         <div class="logo-text">AtithiAI 🍽️</div>
@@ -15,23 +16,54 @@
 
     <div class="nav-links">
         <a href="/index">Dashboard</a>
-        <a href="/ai/dish-explanation">Dish Explanation</a>
-        <a href="/logout">Logout</a>
+        <a href="/order/menu?category=STARTER">Menu</a>
+        <a href="/ai/dish-explanation">Dish AI</a>
     </div>
 </div>
 
 <div class="container">
 
-    <h2 class="page-title">📊 AI Menu Optimization Insights</h2>
+    <h2 class="page-title">🤖 Smart Menu Recommendations</h2>
 
-    <div class="ai-card">
+    <!-- AI Summary Banner -->
+    <div class="ai-banner">
+        Our AI analyzes real customer orders and suggests
+        <strong>what’s popular right now</strong> so you can choose better.
+    </div>
 
-        <ul class="ai-insight-list">
-            <li th:each="insight : ${insights.menu_optimization_insights}"
-                th:text="${insight}">
+    <!-- Best Selling Categories -->
+    <div class="ai-section">
+        <h3>🔥 Best Selling Right Now</h3>
+
+        <div class="ai-card-grid">
+            <div class="ai-card highlight"
+                 th:each="item : ${bestSelling}">
+                <h4 th:text="${item.category}">Category</h4>
+                <p>
+                    <strong th:text="${item.total_orders}"></strong> orders placed
+                </p>
+                <span class="ai-badge best-seller"
+                      th:text="${item.tag}">BEST SELLER</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Suggestions -->
+    <div class="ai-section">
+        <h3>✨ AI Suggestions for You</h3>
+
+        <ul class="ai-suggestion-list">
+            <li th:each="rec : ${recommendations}"
+                th:text="${rec}">
             </li>
         </ul>
+    </div>
 
+    <!-- CTA -->
+    <div class="ai-cta">
+        <a href="/order/menu?category=MAIN" class="btn-primary">
+            Explore Recommended Dishes →
+        </a>
     </div>
 
 </div>

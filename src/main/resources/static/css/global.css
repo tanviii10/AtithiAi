@@ -1019,3 +1019,62 @@ button:hover {
 }
 
 }
+
+.ai-banner {
+    background: linear-gradient(90deg, #fff5ec, #ffe8d9);
+    padding: 16px 22px;
+    border-radius: 14px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    color: #7a3e2e;
+}
+
+.ai-section {
+    margin-bottom: 40px;
+}
+
+.ai-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.ai-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.ai-card.highlight {
+    border-top: 5px solid #ff6b35;
+}
+
+.ai-badge.best-seller {
+    display: inline-block;
+    margin-top: 10px;
+    background: #ff6b35;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+}
+
+.ai-suggestion-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.ai-suggestion-list li {
+    background: #f9fafb;
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.ai-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+

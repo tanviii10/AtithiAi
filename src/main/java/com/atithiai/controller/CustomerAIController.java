@@ -1,5 +1,7 @@
 package com.atithiai.controller;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,9 +49,19 @@ public class CustomerAIController {
     @GetMapping("/menu-optimization")
     public String menuOptimization(Model model) {
 
-        model.addAttribute("insights",
-                aiInsightService.getMenuOptimizationInsights());
+        Map<String, Object> insights =
+                aiInsightService.getMenuOptimizationInsights();
+
+        model.addAttribute("summary",
+                insights.get("summary"));
+
+        model.addAttribute("bestSelling",
+                insights.get("best_selling"));
+
+        model.addAttribute("recommendations",
+                insights.get("recommendations"));
 
         return "customer/ai/menu-optimization";
     }
+
 }
