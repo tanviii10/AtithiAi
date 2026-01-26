@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>AI Dish Explanation | AtithiAI</title>
+    <title>AI Dish Intelligence | AtithiAI</title>
     <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 
@@ -21,75 +21,98 @@
     </div>
 </div>
 
-<!-- Content -->
+<!-- Hero -->
+<div class="ai-hero">
+    <h1>Meet Your AI Food Expert 🤖</h1>
+    <p>
+        Curious what makes a dish special?  
+        Ingredients, taste, spice & chef secrets — explained by AI.
+    </p>
+</div>
+
+<!-- Main -->
 <div class="container">
 
-    <h2 class="page-title">🧠 AI Dish Intelligence</h2>
-    <p class="page-subtitle">
-        Curious about what makes your dish special?  
-        Let AI explain the ingredients, taste & uniqueness.
-    </p>
+    <div class="ai-dish-layout">
 
-    <!-- AI Card -->
-    <div class="ai-card ai-dish-card">
+        <!-- LEFT: Selector -->
+        <div class="ai-select-card">
+            <h3>🍽 Choose a Dish</h3>
 
-        <!-- Form -->
-        <form method="post"
-              th:action="@{/ai/dish-explanation}"
-              class="ai-form ai-form-inline">
-
-            <div class="form-group">
-                <label>Select a Dish</label>
+            <form method="post" th:action="@{/ai/dish-explanation}">
                 <select name="dishName" required>
-                    <option value="">Choose a dish</option>
+                    <option value="">Select dish to analyze</option>
                     <option th:each="dish : ${dishes}"
                             th:value="${dish}"
                             th:text="${dish}"
                             th:selected="${dish == selectedDish}">
                     </option>
                 </select>
-            </div>
 
-            <button type="submit" class="btn-primary ai-glow-btn">
-                ✨ Explain with AI
-            </button>
-        </form>
+                <button type="submit" class="btn-ai-primary">
+                    🔍 Analyze Dish
+                </button>
+            </form>
 
-        <!-- Result -->
-        <div th:if="${info != null and !info.containsKey('error')}"
-             class="ai-result-card">
-
-            <h3 class="dish-title" th:text="${selectedDish}"></h3>
-
-            <div class="dish-attributes">
-
-                <div class="dish-attr">
-                    <span class="attr-label">🥕 Ingredients</span>
-                    <p th:text="${info.ingredients}"></p>
-                </div>
-
-                <div class="dish-attr">
-                    <span class="attr-label">🌶 Spice Level</span>
-                    <p th:text="${info.spice_level}"></p>
-                </div>
-
-                <div class="dish-attr">
-                    <span class="attr-label">😋 Taste Profile</span>
-                    <p th:text="${info.taste}"></p>
-                </div>
-
-                <div class="dish-attr highlight">
-                    <span class="attr-label">⭐ Speciality</span>
-                    <p th:text="${info.speciality}"></p>
-                </div>
-
-            </div>
+            <p class="ai-note">
+                AI reads ingredients, taste profile & popularity data.
+            </p>
         </div>
 
-        <!-- Error -->
-        <div th:if="${info != null and info.containsKey('error')}"
-             class="ai-error">
-            <p th:text="${info.error}"></p>
+        <!-- RIGHT: AI Result -->
+        <div class="ai-result-area">
+
+            <div th:if="${info != null and !info.containsKey('error')}"
+                 class="ai-result-glass">
+
+                <div class="ai-header">
+                    <span class="ai-badge">AI Analysis</span>
+                    <h2 th:text="${selectedDish}"></h2>
+                </div>
+
+                <div class="ai-info-grid">
+
+                    <div class="ai-info-card">
+                        <span class="icon">🥕</span>
+                        <h4>Ingredients</h4>
+                        <p th:text="${info.ingredients}"></p>
+                    </div>
+
+                    <div class="ai-info-card">
+                        <span class="icon">🌶</span>
+                        <h4>Spice Level</h4>
+                        <p th:text="${info.spice_level}"></p>
+                    </div>
+
+                    <div class="ai-info-card">
+                        <span class="icon">😋</span>
+                        <h4>Taste Profile</h4>
+                        <p th:text="${info.taste}"></p>
+                    </div>
+
+                    <div class="ai-info-card highlight">
+                        <span class="icon">⭐</span>
+                        <h4>Why It’s Special</h4>
+                        <p th:text="${info.speciality}"></p>
+                    </div>
+
+                </div>
+
+                <div class="ai-footer">
+                    <span>🤍 Powered by AtithiAI Intelligence</span>
+                </div>
+
+            </div>
+
+            <div th:if="${info != null and info.containsKey('error')}"
+                 class="ai-error">
+                <p th:text="${info.error}"></p>
+            </div>
+
+            <div th:if="${info == null}" class="ai-placeholder">
+                <p>👈 Select a dish to see AI insights here</p>
+            </div>
+
         </div>
 
     </div>
