@@ -3,6 +3,7 @@ package com.atithiai.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,30 +19,36 @@ public class CustomerAIController {
         this.aiInsightService = aiInsightService;
     }
 
-    // Dish Explanation
     @GetMapping("/dish-explanation")
-    public String dishExplanation(
-            @RequestParam(required = false) String dishName,
-            Model model) {
+    public String dishExplanationPage(Model model) {
 
-        if (dishName != null && !dishName.isBlank()) {
-            model.addAttribute(
-                "dish",
-                aiInsightService.getDishExplanation(dishName)
-            );
-        }
+        model.addAttribute("dishes",
+                aiInsightService.getAllDishNames());
 
         return "customer/ai/dish-explanation";
     }
 
-    // Menu Optimization
+    @PostMapping("/dish-explanation")
+    public String dishExplanationResult(
+            @RequestParam String dishName,
+            Model model) {
+
+        model.addAttribute("dishes",
+                aiInsightService.getAllDishNames());
+
+        model.addAttribute("selectedDish", dishName);
+
+        model.addAttribute("info",
+                aiInsightService.getDishExplanation(dishName));
+
+        return "customer/ai/dish-explanation";
+    }
+
     @GetMapping("/menu-optimization")
     public String menuOptimization(Model model) {
 
-        model.addAttribute(
-            "insights",
-            aiInsightService.getMenuOptimizationInsights()
-        );
+        model.addAttribute("insights",
+                aiInsightService.getMenuOptimizationInsights());
 
         return "customer/ai/menu-optimization";
     }

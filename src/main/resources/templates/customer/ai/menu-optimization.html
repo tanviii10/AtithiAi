@@ -12,20 +12,22 @@
         <div class="logo-text">AtithiAI 🍽️</div>
         <div class="tagline">अतिथी देवो भवः</div>
     </div>
+
     <div class="nav-links">
-        <a href="/public/index.html">AI Insights</a>
+        <a href="/index">Dashboard</a>
+        <a href="/ai/dish-explanation">Dish Explanation</a>
         <a href="/logout">Logout</a>
     </div>
 </div>
 
 <div class="container">
 
-    <h2 class="page-title">📊 Menu Optimization Insights</h2>
+    <h2 class="page-title">📊 AI Menu Optimization Insights</h2>
 
-    <div class="order-summary-card">
+    <div class="ai-card">
 
         <ul class="ai-insight-list">
-            <li th:each="insight : ${insights}"
+            <li th:each="insight : ${insights.menu_optimization_insights}"
                 th:text="${insight}">
             </li>
         </ul>

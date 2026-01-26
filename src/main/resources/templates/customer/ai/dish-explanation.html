@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dish Explanation | Customer</title>
+    <title>AI Dish Explanation | AtithiAI</title>
     <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 
@@ -15,26 +15,25 @@
     </div>
 
     <div class="nav-links">
-        <a href="/public/index.html">AI Insights</a>
+        <a href="/index">Dashboard</a> 
+        <a href="/ai/menu-optimization">Menu Optimization</a>
         <a href="/logout">Logout</a>
     </div>
 </div>
 
+<!-- Content -->
 <div class="container">
 
-    <h2 class="page-title">AI Dish Explanation</h2>
+    <h2 class="page-title">What's Inside a Dish</h2>
 
-    <!-- Dish Selection -->
-    <div class="order-summary-card">
+    <div class="ai-card">
 
-        <form method="post" th:action="@{/customer/ai/dish-explanation}"
-              class="ai-form">
+        <form method="post" th:action="@{/ai/dish-explanation}" class="ai-form">
 
-            <label class="form-label">Select Dish</label>
+            <label>Select Dish</label>
 
-            <select name="dishName" required class="select-box">
+            <select name="dishName" required>
                 <option value="">-- Choose a Dish --</option>
-
                 <option th:each="dish : ${dishes}"
                         th:value="${dish}"
                         th:text="${dish}"
@@ -47,36 +46,37 @@
             </button>
         </form>
 
-    </div>
+        <!-- Result -->
+        <div th:if="${info != null and !info.containsKey('error')}"
+             class="ai-result">
 
-    <!-- Result -->
-    <div th:if="${info != null}" class="order-summary-card ai-result-card">
+            <h3 th:text="${selectedDish}"></h3>
 
-        <h3 th:text="${selectedDish}"></h3>
+            <p><strong>Ingredients:</strong>
+                <span th:text="${info.ingredients}"></span>
+            </p>
 
-        <div class="ai-info-row">
-            <strong>Ingredients:</strong>
-            <span th:text="${info.ingredients}"></span>
+            <p><strong>Spice Level:</strong>
+                <span th:text="${info.spice_level}"></span>
+            </p>
+
+            <p><strong>Taste:</strong>
+                <span th:text="${info.taste}"></span>
+            </p>
+
+            <p><strong>Speciality:</strong>
+                <span th:text="${info.speciality}"></span>
+            </p>
         </div>
 
-        <div class="ai-info-row">
-            <strong>Spice Level:</strong>
-            <span th:text="${info.spice_level}"></span>
-        </div>
-
-        <div class="ai-info-row">
-            <strong>Taste:</strong>
-            <span th:text="${info.taste}"></span>
-        </div>
-
-        <div class="ai-info-row">
-            <strong>Speciality:</strong>
-            <span th:text="${info.speciality}"></span>
+        <div th:if="${info != null and info.containsKey('error')}">
+            <p th:text="${info.error}"></p>
         </div>
 
     </div>
 
 </div>
+
 <div class="footer">
     © 2026 AtithiAI · Smart Hospitality Platform
 </div>
