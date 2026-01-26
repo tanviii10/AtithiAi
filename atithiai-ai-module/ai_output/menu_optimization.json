@@ -1,7 +1,50 @@
 {
-    "menu_optimization_insights": [
-        "Maintain current strategy for STARTER items",
-        "Promote MAIN items during peak hours",
-        "Review or replace low-performing DESSERT items"
+    "summary": {
+        "high_demand_categories": [
+            "MAIN"
+        ],
+        "medium_demand_categories": [
+            "STARTER"
+        ],
+        "low_demand_categories": [
+            "DESSERT"
+        ]
+    },
+    "best_selling": [
+        {
+            "category": "MAIN",
+            "total_orders": 113,
+            "tag": "BEST_SELLER"
+        },
+        {
+            "category": "STARTER",
+            "total_orders": 63,
+            "tag": "TRENDING"
+        },
+        {
+            "category": "DESSERT",
+            "total_orders": 30,
+            "tag": "TRENDING"
+        }
+    ],
+    "recommendations": [
+        {
+            "category": "STARTER",
+            "demand": "MEDIUM",
+            "action": "MAINTAIN",
+            "message": "Stable demand. Keep current strategy."
+        },
+        {
+            "category": "MAIN",
+            "demand": "HIGH",
+            "action": "RECOMMEND",
+            "message": "High demand during peak hours. Promote to customers."
+        },
+        {
+            "category": "DESSERT",
+            "demand": "LOW",
+            "action": "REVIEW",
+            "message": "Low demand. Consider replacing or offering discounts."
+        }
     ]
 }

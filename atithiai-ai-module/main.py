@@ -93,10 +93,13 @@ print(result)
 
 print("\n--- Menu Optimization Insights Started ---")
 
+import json
+import pandas as pd
+
 # STEP 1: Load food demand data
 data = pd.read_csv("food_demand.csv")
 
-# STEP 2: Recreate demand labels (same as Feature 2)
+# STEP 2: Demand classification (same logic)
 def demand_label(order_count):
     if order_count >= 30:
         return "HIGH"
@@ -107,8 +110,12 @@ def demand_label(order_count):
 
 data["demand"] = data["orders"].apply(demand_label)
 
-# STEP 3: Generate optimization insights
-insights = []
+# STEP 3: Prepare summary buckets
+high_demand = []
+medium_demand = []
+low_demand = []
+
+recommendations = []
 
 for category in data["category"].unique():
     category_data = data[data["category"] == category]
@@ -116,21 +123,70 @@ for category in data["category"].unique():
     demand = demand_label(avg_orders)
 
     if demand == "HIGH":
-        insights.append(f"Promote {category} items during peak hours")
+        high_demand.append(category)
+        action = "RECOMMEND"
+        message = "High demand during peak hours. Promote to customers."
     elif demand == "MEDIUM":
-        insights.append(f"Maintain current strategy for {category} items")
+        medium_demand.append(category)
+        action = "MAINTAIN"
+        message = "Stable demand. Keep current strategy."
     else:
-        insights.append(f"Review or replace low-performing {category} items")
+        low_demand.append(category)
+        action = "REVIEW"
+        message = "Low demand. Consider replacing or offering discounts."
 
-# STEP 4: Save insights to JSON
-menu_insights = {
-    "menu_optimization_insights": insights
+    recommendations.append({
+        "category": category,
+        "demand": demand,
+        "action": action,
+        "message": message
+    })
+
+# LOAD food demand data ONCE
+dish_data = pd.read_csv("food_demand.csv")
+
+print("\n--- Best Selling Categories Analysis Started ---")
+
+category_sales = (
+    dish_data
+    .groupby("category")["orders"]
+    .sum()
+    .reset_index()
+    .sort_values(by="orders", ascending=False)
+)
+
+top_categories = category_sales.head(3)
+
+best_selling = []
+
+max_orders = top_categories["orders"].iloc[0]
+
+for _, row in top_categories.iterrows():
+    tag = "BEST_SELLER" if row["orders"] >= 0.8 * max_orders else "TRENDING"
+
+    best_selling.append({
+        "category": row["category"],
+        "total_orders": int(row["orders"]),
+        "tag": tag
+    })
+
+
+menu_optimization_output = {
+    "summary": {
+        "high_demand_categories": high_demand,
+        "medium_demand_categories": medium_demand,
+        "low_demand_categories": low_demand
+    },
+    "best_selling": best_selling,
+    "recommendations": recommendations
 }
 
 with open("ai_output/menu_optimization.json", "w") as f:
-    json.dump(menu_insights, f, indent=4)
+    json.dump(menu_optimization_output, f, indent=4)
 
-print("Menu optimization insights generated")
+print("Menu optimization + best selling dishes generated successfully")
+
+
 
 print("\n--- Dish Explanation AI Started ---")
 
