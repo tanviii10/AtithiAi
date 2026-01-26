@@ -48,16 +48,28 @@
         </div>
     </div>
 
-    <!-- AI Suggestions -->
     <div class="ai-section">
-        <h3>✨ AI Suggestions for You</h3>
+    <h3>✨ AI Suggestions for You</h3>
 
-        <ul class="ai-suggestion-list">
-            <li th:each="rec : ${recommendations}"
-                th:text="${rec}">
-            </li>
-        </ul>
+    <div class="ai-suggestion-card"
+         th:each="rec : ${recommendations}">
+
+        <div class="ai-suggestion-header">
+            <span class="ai-category"
+                  th:text="${rec.category}">CATEGORY</span>
+
+            <span class="ai-demand"
+                  th:text="${rec.demand}">DEMAND</span>
+        </div>
+
+        <p class="ai-message"
+           th:text="${rec.message}">
+            AI message
+        </p>
+
     </div>
+</div>
+
 
     <!-- CTA -->
     <div class="ai-cta">

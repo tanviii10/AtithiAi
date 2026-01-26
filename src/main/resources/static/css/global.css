@@ -1077,4 +1077,36 @@ button:hover {
     text-align: center;
     margin-top: 40px;
 }
+.ai-suggestion-card {
+    background: #ffffff;
+    padding: 18px 22px;
+    border-radius: 16px;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+}
+
+.ai-suggestion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ai-category {
+    font-weight: 600;
+    color: #ff6b35;
+}
+
+.ai-demand {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #ffe5d4;
+    color: #7a3e2e;
+}
+
+.ai-message {
+    color: #374151;
+    font-size: 14px;
+}
 
