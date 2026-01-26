@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>Dish Explanation | Customer</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
+
 <body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+
+    <div class="nav-links">
+        <a href="/public/index.html">AI Insights</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 class="page-title">AI Dish Explanation</h2>
+
+    <!-- Dish Selection -->
+    <div class="order-summary-card">
+
+        <form method="post" th:action="@{/customer/ai/dish-explanation}"
+              class="ai-form">
+
+            <label class="form-label">Select Dish</label>
+
+            <select name="dishName" required class="select-box">
+                <option value="">-- Choose a Dish --</option>
+
+                <option th:each="dish : ${dishes}"
+                        th:value="${dish}"
+                        th:text="${dish}"
+                        th:selected="${dish == selectedDish}">
+                </option>
+            </select>
+
+            <button type="submit" class="btn-primary">
+                Get AI Explanation
+            </button>
+        </form>
+
+    </div>
+
+    <!-- Result -->
+    <div th:if="${info != null}" class="order-summary-card ai-result-card">
+
+        <h3 th:text="${selectedDish}"></h3>
+
+        <div class="ai-info-row">
+            <strong>Ingredients:</strong>
+            <span th:text="${info.ingredients}"></span>
+        </div>
+
+        <div class="ai-info-row">
+            <strong>Spice Level:</strong>
+            <span th:text="${info.spice_level}"></span>
+        </div>
+
+        <div class="ai-info-row">
+            <strong>Taste:</strong>
+            <span th:text="${info.taste}"></span>
+        </div>
+
+        <div class="ai-info-row">
+            <strong>Speciality:</strong>
+            <span th:text="${info.speciality}"></span>
+        </div>
+
+    </div>
+
+</div>
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
 
 </body>
 </html>
