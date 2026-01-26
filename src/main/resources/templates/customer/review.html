@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Review | AtithiAI</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">
+        <div class="logo-text">AtithiAI 🍽️</div>
+        <div class="tagline">अतिथी देवो भवः</div>
+    </div>
+    <div class="nav-links">
+        <a href="/index">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="page-title">⭐ Share Your Experience</h2>
+
+    <div class="order-summary-card">
+
+        <form th:action="@{/review/submit}" method="post">
+
+            <label>Customer Name</label>
+            <input type="text" name="customerName" required>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+    <div>
+        <label>Food Rating (1–5)</label>
+        <select name="foodRating" required>
+            <option value="">Select</option>
+            <option th:each="i : ${#numbers.sequence(1,5)}"
+                    th:value="${i}" th:text="${i}"></option>
+        </select>
+    </div>
+
+    <div>
+        <label>Facility Rating (1–5)</label>
+        <select name="facilityRating" required>
+            <option value="">Select</option>
+            <option th:each="i : ${#numbers.sequence(1,5)}"
+                    th:value="${i}" th:text="${i}"></option>
+        </select>
+    </div>
+</div>
+
+
+            <label>Comments</label>
+            <textarea name="comment" rows="4"
+                      placeholder="Your suggestions or feedback..."></textarea>
+
+            <button type="submit" class="btn-primary" style="margin-top:15px;">
+                Submit Review
+            </button>
+        </form>
+
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 AtithiAI · Smart Hospitality Platform
+</div>
+
+</body>
+</html>

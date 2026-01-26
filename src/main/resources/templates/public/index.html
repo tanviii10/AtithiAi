@@ -19,7 +19,6 @@
 
         <a href="/">Home</a>
 
-        <!-- ================= CUSTOMER ONLY ================= -->
         <div class="dropdown" sec:authorize="hasRole('CUSTOMER')">
             <a href="#" class="dropbtn">AI Insights ▾</a>
             <div class="dropdown-content">
@@ -27,15 +26,7 @@
                 <a href="/ai/menu-optimization">Menu Optimization Insights</a>   
             </div>
         </div>
-
-        <div class="dropdown" sec:authorize="hasRole('CUSTOMER')">
-            <a href="#" class="dropbtn">Dashboard ▾</a>
-            <div class="dropdown-content">
-                <a href="/table/book">Book Table</a>
-                <a href="/reviews">Reviews / Suggestions</a>
-            </div>
-        </div>
-
+        <a href="/review">Review</a>
         <a href="/logout">Logout</a>
     </div>
 </div>
