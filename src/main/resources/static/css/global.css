@@ -1149,4 +1149,99 @@ button:hover {
 .ai-recommendation h3 {
     color: #6d28d9;
 }
+/* Dish Explanation Page */
+.page-subtitle {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.ai-dish-card {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Inline form */
+.ai-form-inline {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.ai-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    margin-top: 6px;
+}
+
+/* Glow button */
+.ai-glow-btn {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    box-shadow: 0 10px 25px rgba(99,102,241,0.4);
+}
+
+.ai-glow-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Result Card */
+.ai-result-card {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.dish-title {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+/* Attributes grid */
+.dish-attributes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.dish-attr {
+    padding: 18px;
+    border-radius: 14px;
+    background: #f9fafb;
+}
+
+.dish-attr.highlight {
+    background: linear-gradient(135deg, #fff7ed, #ffedd5);
+}
+
+.attr-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #7c2d12;
+}
+
+/* Error */
+.ai-error {
+    margin-top: 25px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #fee2e2;
+    color: #991b1b;
+}
 

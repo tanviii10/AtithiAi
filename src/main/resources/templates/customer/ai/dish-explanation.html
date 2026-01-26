@@ -15,7 +15,7 @@
     </div>
 
     <div class="nav-links">
-        <a href="/index">Dashboard</a> 
+        <a href="/index">Dashboard</a>
         <a href="/ai/menu-optimization">Menu Optimization</a>
         <a href="/logout">Logout</a>
     </div>
@@ -24,52 +24,71 @@
 <!-- Content -->
 <div class="container">
 
-    <h2 class="page-title">What's Inside A Dish !</h2>
+    <h2 class="page-title">🧠 AI Dish Intelligence</h2>
+    <p class="page-subtitle">
+        Curious about what makes your dish special?  
+        Let AI explain the ingredients, taste & uniqueness.
+    </p>
 
-    <div class="ai-card">
+    <!-- AI Card -->
+    <div class="ai-card ai-dish-card">
 
-        <form method="post" th:action="@{/ai/dish-explanation}" class="ai-form">
+        <!-- Form -->
+        <form method="post"
+              th:action="@{/ai/dish-explanation}"
+              class="ai-form ai-form-inline">
 
-            <label>Select Dish</label>
+            <div class="form-group">
+                <label>Select a Dish</label>
+                <select name="dishName" required>
+                    <option value="">Choose a dish</option>
+                    <option th:each="dish : ${dishes}"
+                            th:value="${dish}"
+                            th:text="${dish}"
+                            th:selected="${dish == selectedDish}">
+                    </option>
+                </select>
+            </div>
 
-            <select name="dishName" required>
-                <option value="">-- Choose a Dish --</option>
-                <option th:each="dish : ${dishes}"
-                        th:value="${dish}"
-                        th:text="${dish}"
-                        th:selected="${dish == selectedDish}">
-                </option>
-            </select>
-
-            <button type="submit" class="btn-primary">
-                Get AI Explanation
+            <button type="submit" class="btn-primary ai-glow-btn">
+                ✨ Explain with AI
             </button>
         </form>
 
         <!-- Result -->
         <div th:if="${info != null and !info.containsKey('error')}"
-             class="ai-result">
+             class="ai-result-card">
 
-            <h3 th:text="${selectedDish}"></h3>
+            <h3 class="dish-title" th:text="${selectedDish}"></h3>
 
-            <p><strong>Ingredients:</strong>
-                <span th:text="${info.ingredients}"></span>
-            </p>
+            <div class="dish-attributes">
 
-            <p><strong>Spice Level:</strong>
-                <span th:text="${info.spice_level}"></span>
-            </p>
+                <div class="dish-attr">
+                    <span class="attr-label">🥕 Ingredients</span>
+                    <p th:text="${info.ingredients}"></p>
+                </div>
 
-            <p><strong>Taste:</strong>
-                <span th:text="${info.taste}"></span>
-            </p>
+                <div class="dish-attr">
+                    <span class="attr-label">🌶 Spice Level</span>
+                    <p th:text="${info.spice_level}"></p>
+                </div>
 
-            <p><strong>Speciality:</strong>
-                <span th:text="${info.speciality}"></span>
-            </p>
+                <div class="dish-attr">
+                    <span class="attr-label">😋 Taste Profile</span>
+                    <p th:text="${info.taste}"></p>
+                </div>
+
+                <div class="dish-attr highlight">
+                    <span class="attr-label">⭐ Speciality</span>
+                    <p th:text="${info.speciality}"></p>
+                </div>
+
+            </div>
         </div>
 
-        <div th:if="${info != null and info.containsKey('error')}">
+        <!-- Error -->
+        <div th:if="${info != null and info.containsKey('error')}"
+             class="ai-error">
             <p th:text="${info.error}"></p>
         </div>
 
