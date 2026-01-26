@@ -23,8 +23,8 @@
         <div class="dropdown" sec:authorize="hasRole('CUSTOMER')">
             <a href="#" class="dropbtn">AI Insights ▾</a>
             <div class="dropdown-content">
-                <a href="/ai/menu-optimization">Menu Optimization Insights</a>
-                <a href="/ai/dish-explanation">AI Dish Explanation</a>
+            	<a href="/ai/dish-explanation">AI Dish Explanation</a>
+                <a href="/ai/menu-optimization">Menu Optimization Insights</a>   
             </div>
         </div>
 
@@ -59,6 +59,22 @@
      	<img th:src="@{/images/hero-food.jpg}" alt="Delicious Food">
     </div>
 </section>
+<section class="section">
+    <h2 class="section-title">AI Powered Experience</h2>
+
+    <div class="ai-focus-card">
+        <h3>🤖 AI Insights</h3>
+        <p>
+            Discover smart dish explanations and menu insights
+            powered by Artificial Intelligence.
+        </p>
+
+        <a href="/ai/dish-explanation" class="btn-primary">
+            Explore AI Insights
+        </a>
+    </div>
+</section>
+
 
 <!-- Categories -->
 <section class="section">
