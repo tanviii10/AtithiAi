@@ -7,6 +7,7 @@
 
 <body>
 
+<!-- Navbar -->
 <div class="navbar">
     <div class="brand">
         <div class="logo-text">AtithiAI 🍽️</div>
@@ -22,20 +23,29 @@
 
 <div class="container">
 
-    <h2 class="page-title">AI Insight: Peak Business Hours</h2>
+    <h2 class="page-title">🧠 AI Peak Hour Analysis</h2>
 
-    <div class="order-summary-card">
+    <!-- Description -->
+    <div class="ai-card">
+        <p class="ai-description" th:text="${description}"></p>
+    </div>
 
-        <p th:text="${description}" style="margin-bottom:20px;"></p>
+    <!-- Peak Hours Visualization -->
+    <div class="ai-card">
+        <h3>⏰ Predicted Peak Hours</h3>
 
-        <h3>Peak Hours</h3>
+        <div class="peak-hour-grid">
+            <div class="peak-hour-chip"
+                 th:each="hour : ${peakHours}">
+                <span th:text="${hour}"></span>:00
+            </div>
+        </div>
+    </div>
 
-        <ul>
-            <li th:each="hour : ${peakHours}">
-                <strong th:text="${hour}"></strong>:00
-            </li>
-        </ul>
-
+    <!-- AI Recommendation -->
+    <div class="ai-card ai-recommendation">
+        <h3>🎯 AI Recommendation</h3>
+        <p th:text="${recommendation}"></p>
     </div>
 
 </div>

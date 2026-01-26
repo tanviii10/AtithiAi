@@ -31,14 +31,26 @@ public class AdminAIController {
     //Peak Hours
     @GetMapping("/peak-hours")
     public String peakHours(Model model) {
-    	
-    	System.out.println("ADMIN AI CONTROLLER: peak-hours endpoint HIT");
 
         Map<String, Object> data = aiInsightService.getPeakHours();
-        model.addAttribute("peakHours", data.get("peak_hours"));
+
+        @SuppressWarnings("unchecked")
+        List<Integer> peakHours = (List<Integer>) data.get("peak_hours");
+
+        String recommendation;
+        if (peakHours.contains(19) || peakHours.contains(20)) {
+            recommendation = "Evening rush detected. Increase staff and promote dinner combos.";
+        } else {
+            recommendation = "Moderate traffic. Normal operations recommended.";
+        }
+
+        model.addAttribute("peakHours", peakHours);
         model.addAttribute("description", data.get("description"));
+        model.addAttribute("recommendation", recommendation);
+
         return "admin/ai/peak-hours";
     }
+
 
     //Food Demand
     @GetMapping("/food-demand")
@@ -51,12 +63,13 @@ public class AdminAIController {
     //Menu Optimization
     @GetMapping("/menu-optimization")
     public String menuOptimization(Model model) {
+
         Map<String, Object> data =
                 aiInsightService.getMenuOptimizationInsights();
 
         model.addAttribute(
-            "insights",
-            (List<String>) data.get("menu_optimization_insights")
+                "recommendations",
+                data.get("recommendations")
         );
 
         return "admin/ai/menu-optimization";
