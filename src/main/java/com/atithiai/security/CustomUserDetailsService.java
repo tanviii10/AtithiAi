@@ -27,9 +27,9 @@ public class CustomUserDetailsService implements UserDetailsService {
                         new UsernameNotFoundException("User not found"));
 
         return User.builder()
-                .username(user.getPhone())   // login with phone
-                .password(user.getPassword()) // plain password 
-                .roles(user.getRole())       // ADMIN / CUSTOMER
+                .username(user.getPhone())   
+                .password(user.getPassword()) 
+                .roles(user.getRole())      
                 .build();
     }
 }
